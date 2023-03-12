@@ -24,18 +24,3 @@
     background: rgba(0, 0, 0, 0.45);
     color: #fff;
   }
-  .link { 
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    padding:10px 30px ;
-    margin: 50px ;
-    border: 1px solid;
-    border-radius: 50px ;
-    background-color: rgb(222, 77, 104);
-  }
-
-  .link:hover {
-    background-color: rgb(233, 228, 229);
-    transition: color 0.7s ease-in-out, background-color 1s ease-in-out, border-color 2s ease-in-out;
-  }

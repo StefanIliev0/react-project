@@ -1,6 +1,6 @@
 import React from 'react' ;
 import styles from "../css/header.module.css";
-import {Link} from "react-router-dom";
+import { CustomLink } from './CustomLink';
 
 
 export function Header() {
@@ -11,7 +11,7 @@ export function Header() {
             <h1 className={styles["title"]}>With Your Friends</h1>
             </div>
             <div>
-                <Link to={"/"} className={styles.link}>Someting</Link>
+                <CustomLink to={"/"} text="Someting"/>
             </div>
         </header>
     )

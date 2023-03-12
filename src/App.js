@@ -2,17 +2,20 @@ import './App.css';
 import{Navigation} from "./components/Navigation"
 import {Home}  from './components/Home';
 import { BrowserRouter ,Routes ,Route } from 'react-router-dom';
+import { Footer } from './components/Footer';
+import { Activities } from './components/Activities';
 
 function App() {
   return (
  <>
- <BrowserRouter>
+ <BrowserRouter >
  <Navigation/>
  <Routes>
   <Route path='/' element={<Home/>}/>
+  <Route path='/activities' element={<Activities/>} />
  </Routes>
  </BrowserRouter>
- <h1>Lets Begin</h1>
+ <Footer/>
  </>
   );
 }

@@ -1,0 +1,32 @@
+.div-articles{
+    background-color: rgba(153, 153, 210, 0.434);
+    border: 2px solid black;
+    border-radius: 20px;
+    width: 80%;
+    margin: -50px auto 0 auto;
+}
+.article{
+    text-align: center;
+    display: inline-block;
+    width: 30%;
+    padding: 1% 1.5%;
+}
+.icon{
+    display: inline-block;
+    border: 2px solid black;
+    border-radius: 50%;
+    width: 20%;
+    height: 20%;
+    color: green;
+}
+.headers{
+    font-size: large;
+    font-weight: bold;
+}
+
+.left-border {
+    border-left: 1px dotted;
+}
+.right-border { 
+    border-right: 1px dotted;
+}

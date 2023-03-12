@@ -1,40 +1,42 @@
 import React from 'react';
 import styles from '../css/navigation.module.css';
-import { Link } from "react-router-dom";
-import {MdOutlineRoute} from "react-icons/md";
-import {CgProfile} from "react-icons/cg"
+import { Link } from 'react-router-dom';
+import { CustomLink } from './CustomLink';
+import {CgProfile , CgHome} from "react-icons/cg"
 
 
 export function Navigation() {
     return (
         <div className={styles["navigation-div"]}>
-            <nav className={styles["nav"]} >
                 <div className={styles["home-div"]}>
-                <Link to="/" className={styles.link}>
-                   <MdOutlineRoute className={styles.icon}/>
+                <Link to="/" className={styles["link-icon"]}>
+                  <CgHome className={styles.icon}/>
                 </Link>
                 </div>
+            <nav className={styles["nav"]} >
                 <ul className={styles.ul}>
-                    <li className={styles.li}>
-                        <Link to="/users/login" className={styles.link}>Login</Link>
+                    {/* <li className={styles.li}>
+                        <CustomLink to="users/login" text={"Login"} />
                     </li>
                     <li className={styles.li}>
-                        <Link to="users/register" className={styles.link}>Register</Link>
-                    </li> 
+                         <CustomLink to="users/register" text={"Register"} />
+                    </li>  */}
                     <li className={styles.li}>
-                        <Link to="users/logout" className={styles.link}>Logout</Link>
+                        <CustomLink to="users/logout" text={"Logout"} />
                     </li>
                     <li className={styles.li}>
-                        <Link to="trips" className={styles.link}>Trips</Link>
+                        <CustomLink to="/activities" text={"Activities"}/>
                     </li>
                     <li className={styles.li}>
-                        <Link to="groups" className={styles.link}>Groups</Link>
+                        <CustomLink to="/groups" text={"Groups"}/>
                     </li>
                 </ul>
             </nav>
             <div className={styles["profile-div"]}>
-                <Link to="/prolfile" className={styles.link}>
+                <Link to="/prolfile" className={styles["link-icon"]}>
+                    <div>
                    <CgProfile className={styles.icon}/>
+                   </div>
                 </Link>
             </div>
     </div>
