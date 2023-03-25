@@ -1,0 +1,9 @@
+
+.details-div {
+    display: inline-block;
+    box-sizing: border-box;
+    margin: 70px;
+    width: 1300px;
+    border: 1px solid black;
+    border-radius: 50px;
+}

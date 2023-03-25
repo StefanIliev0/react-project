@@ -1,0 +1,16 @@
+.label {
+    display: inline-block;
+    font: 25px bold;
+    margin: 25px 0;
+}
+.select {
+    display: inline-block;
+    font-size: 20px;
+}
+.input-container {
+    text-align: left;
+    display: block;
+    margin: 10px;
+    width: 400px;
+    height: 100px;
+}

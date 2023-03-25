@@ -1,0 +1,30 @@
+.input-container-area {
+    text-align: left;
+    display: block;
+    margin: 10px;
+    height: 450px;
+    width: 900px;
+}
+.form-area{
+    font-size: medium;
+    text-align: left;
+    height: 450px;
+    width: 900px;
+}
+.input-textarea-div{
+    text-align: left;
+    height: 450px;
+    width: 1000px;
+}
+.h3-textarea {
+    display: inline-block;
+    width: 300px;
+}
+.textarea {  
+    height: 300px;
+    width: 800px;
+    display: inline-block;
+    font-size: 15px;
+    overflow-y: auto;
+    resize: none;
+}

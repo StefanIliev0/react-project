@@ -1,0 +1,35 @@
+.container-div {
+    display: block;
+    margin: 30px auto;
+    width: 800px;
+    border: 1px solid black;
+    border-radius: 50px;
+}
+.inline-div{
+    margin: 25px 0;
+    display: inline-block;
+    width: 100%;
+}
+.label {
+    display: inline-block;
+    width: 100%;
+    font: 25px bold;
+    margin: 25px 0;
+}
+.input {
+    display: inline-block;
+    font-size: 20px;
+}
+.form {
+    text-align: center;
+    width: 500px;
+    margin: 50px auto;
+}
+.textarea {
+    height: 200px;
+    width: 500px;
+    display: inline-block;
+    font-size: 15px;
+    overflow-y: auto;
+    resize: none;
+}

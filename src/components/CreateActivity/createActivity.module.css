@@ -1,0 +1,8 @@
+.container-div{
+    display: inline-block;
+    margin: 70px;
+    width: 1000px;
+    height: 1000px;
+    border: 1px solid black;
+    border-radius: 50px;
+}

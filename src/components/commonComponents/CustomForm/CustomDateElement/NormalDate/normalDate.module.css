@@ -1,0 +1,23 @@
+.label {
+    display: inline-block;
+    font: 25px bold;
+    margin: 25px 0;
+}
+.input-long {
+    height: 30px;
+    display: inline-block;
+    font-size: 16px;
+    margin-right: 20px;
+    border-radius: 10px;
+}
+.check-div {
+    display: block;
+    float: right;
+    text-align: center;
+    width: 75px;
+}
+.checkbox {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+}

@@ -1,0 +1,10 @@
+.details-div {
+    display: block;
+    float: left;
+    box-sizing: border-box;
+    margin: 70px;
+    width: 1000px;
+    height: 1000px;
+    border: 1px solid black;
+    border-radius: 50px;
+}

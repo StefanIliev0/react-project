@@ -1,0 +1,22 @@
+.input-container-long {
+    text-align: left;
+    display: block;
+    margin: 10px;
+    width: 700px;
+    height: 100px;
+}
+.form-long {
+    font-size: large;
+    text-align: left;
+    width: 700px;
+    height: 100px;
+}
+.input-text-div {
+    font-size: large;
+    text-align: left;
+    width: 600px;
+    height: 100px;
+}
+.h3 {
+    display: inline-block;
+}

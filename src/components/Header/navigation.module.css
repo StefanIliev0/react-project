@@ -1,0 +1,61 @@
+
+.navigation-div {
+    border: 1px solid black;
+    border-radius: 36px/35px;
+    display: inline-block;
+    position: relative;
+    top: 1vw;
+    width: 1500px;
+    height: 72px;
+    background-color: rgb(0 0 0 / 45%) ; 
+}
+.nav { 
+    display: inline-block;
+    width: 1000px; 
+}
+.ul{
+    display: block;
+    text-align: center;
+    margin: 8px;
+    padding: 0;
+}
+.li {
+    display: inline-block;
+    margin: 0 50px;
+}
+.home-div {
+    text-align: left;
+    float: left;
+    display: block;
+    text-decoration: none;
+    border-radius: 50%;
+    width: 250px;
+    height: 70px;
+}
+ .link-icon{
+    position: relative;
+    font-weight: bolder;
+    font-size: 120%;
+    text-decoration: none;
+    color: rgb(79 0 15);
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+} 
+.icon {
+    background-color: rgba(190, 175, 175, 0.505);
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+}
+.profile-div{
+    vertical-align: middle;
+    display: inline-block;
+    width: 250px;
+    height: 70px;
+    border-radius: 32px;
+    margin-bottom: 23px;
+    background-color: rgb(99 125 94);
+}

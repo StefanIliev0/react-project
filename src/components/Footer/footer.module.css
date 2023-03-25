@@ -1,0 +1,12 @@
+
+.footer{
+    display: inline;
+    text-align: left;
+    height: 50px;
+}
+.p-footer{
+    margin-left: 30px;
+}
+.span-footer{
+    font-weight: bold;
+}

@@ -1,0 +1,16 @@
+.input-container {
+    text-align: left;
+    display: block;
+    margin: 10px;
+    width: 400px;
+    height: 100px;
+}
+.input-text-div {
+    font-size: large;
+    text-align: left;
+    width: 400px;
+    height: 100px;
+}
+.h3 {
+    display: inline-block;
+}

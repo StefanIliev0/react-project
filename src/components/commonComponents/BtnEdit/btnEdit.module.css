@@ -1,0 +1,10 @@
+.icon {
+  display: block;
+  width: 30px;
+  height: 25px;
+}
+.edit-div {
+  display: block;
+  float: right;
+  margin: 20px;
+}

@@ -1,0 +1,79 @@
+.profile-div{
+    display: block;
+    float: right;
+    text-decoration: none;
+    border-radius: 50%;
+}
+.link-icon{
+    position: relative;
+    font-weight: bolder;
+    font-size: 120%;
+    text-decoration: none;
+    color: rgb(79 0 15);
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+} 
+.icon {
+    background-color: rgba(190, 175, 175, 0.505);
+    text-decoration: none;
+    border: 1px solid black;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+}
+.p {
+    font-size: larger;
+    padding: 0;
+    margin: 0;
+}
+.container-div{
+    vertical-align: middle;
+    display: inline-block;
+    width: 250px;
+    height: 70px;
+    border-radius: 32px;
+    margin-bottom: 23px;
+    background-color: rgb(99 125 94);
+}
+.remove-btn{
+    margin-left: 10px;
+    margin-top: 18px;
+    background-color:rgb(223, 12, 54);
+    cursor: pointer;
+    border-radius: 8px;
+    opacity: 0;
+    animation: fade-in 1s ease-in-out forwards
+}
+.buttons-div{
+    display: inline-block;
+}
+
+
+
+  .return-btn {
+    margin-left: 10px;
+    background-color:rgb(223, 12, 54);
+    cursor: pointer;
+    border-radius: 8px;
+    opacity: 0;
+    animation: fade-in 1s ease-in-out forwards
+  }
+
+  .removed-btn{
+    margin-right: 10px;
+    background-color:rgb(22, 144, 28);
+    cursor: pointer;
+    border-radius: 8px;
+    opacity: 0;
+    animation: fade-in 1s ease-in-out forwards
+  }
+  
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }

@@ -1,0 +1,7 @@
+.container-div {
+    display: block;
+    margin: 30px auto;
+    width: 1500px;
+    border: 1px solid black;
+    border-radius: 50px;
+}

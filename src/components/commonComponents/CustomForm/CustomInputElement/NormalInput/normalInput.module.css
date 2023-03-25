@@ -1,0 +1,9 @@
+.label {
+    display: inline-block;
+    font: 25px bold;
+    margin: 25px 0;
+}
+.input {
+    display: inline-block;
+    font-size: 20px;
+}

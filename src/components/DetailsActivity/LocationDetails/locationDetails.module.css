@@ -1,0 +1,7 @@
+.locations-div {
+    display: inline-block;
+    box-sizing: content-box;
+    width: 1300px;
+    border: 1px solid black;
+    border-radius: 50px;
+}
