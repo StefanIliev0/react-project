@@ -11,11 +11,11 @@ export function AccessibilitySelect( {groups , saveData }){
 
     return (
         <div className={styles["input-container"]} >
-        <label  className={styles["label"]}>{`Available for :`}</label>
-             <select name={"accessibility"} value={currentText} onChange={handleChange} className={styles["select"]}>
+        <label htmlFor="accessibility" className={styles["label"]}>{`Available for :`}</label>
+             <select id="accessibility" name={"accessibility"} value={currentText} onChange={handleChange} className={styles["select"]}>
                      <option value="all" >All</option>
                      {
-                        groups.map( (group) => <option value={group._id}>{group.name}</option>)
+                        groups.map( (group) => <option key={group._id} value={group._id}>{group.name}</option>)
                      }
 
                  </select>

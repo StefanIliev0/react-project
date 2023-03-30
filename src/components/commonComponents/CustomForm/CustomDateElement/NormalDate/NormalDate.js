@@ -1,10 +1,10 @@
 import styles from "./normalDate.module.css"
 
 
-export function NormalDate( { changeHandler , text , oneDay , changeDays }){
+export function NormalDate( { changeHandler, text, oneDay, changeDays, error}){
 
     return (
-<>
+<>  {error !== "" && <p className={styles["error"]}>{error}</p>}
         <label  className={styles["label"]}>From :</label>
         <input
             className={styles["input-long"]} 

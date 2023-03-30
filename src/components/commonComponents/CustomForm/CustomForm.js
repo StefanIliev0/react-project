@@ -14,7 +14,7 @@ import { BtnEdit } from "../BtnEdit/BtnEdit";
 export function CustomForm({ children, generalEdit, setGeneralEdit, setGeneralSave, reject }) {
     function askForDelete(e) {
         e.preventDefault();
-        if (window.confirm('Delete this activity ?')) {
+        if (window.confirm('Are you sure you want to delete this item??')) {
             deleteActivity("id");
         }
     }
@@ -24,7 +24,9 @@ export function CustomForm({ children, generalEdit, setGeneralEdit, setGeneralSa
     function saveAllData(e) {
         e.preventDefault();
         setGeneralSave();
+        if(setGeneralEdit ){
         setGeneralEdit(false);
+    }
     }
 
     return (

@@ -8,7 +8,7 @@ import { AiOutlineEdit} from "react-icons/ai"
 export function BtnEdit({onclick}) {
     return (
         <div className={styles["edit-div"]}>
-  <CustomButton text={<AiOutlineEdit className={styles["icon"]}/>} onclick = {onclick}/>
+  <CustomButton text={<AiOutlineEdit className={styles["icon"]}/>} onclick = {onclick} type= "button"/>
     </div>
     )
 }

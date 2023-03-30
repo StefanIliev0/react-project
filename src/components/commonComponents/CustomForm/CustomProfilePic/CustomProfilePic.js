@@ -9,24 +9,23 @@ import { NormalInput } from "../CustomInputElement/NormalInput/NormalInput";
 
 
 
-export function CustomProfilePic({ text , generalEdit , saveData , addCauntSave , save}) {
+export function CustomProfilePic({ text, generalEdit, saveData, setSave}) {
     const [hover , setHover] = useState(false);
     const [edit , setEdit] = useState(false);
     const [currentText , setCurrentText] = useState(text);
 
-    if(save){
-        saveData( "imgUrl" , currentText); 
-        addCauntSave()
-    }
-
-    function formSubmit(e){
-        saveData("imgUrl" , currentText)
+    const onSubmit = (e) => {
+        saveData("imgUrl" , currentText);
         setEdit(false) ; 
-        // return datas !!!!!!!!!
-    }
+     }
+
+    
     function handleChange(e){
         e.preventDefault();
         setCurrentText(e.target.value);
+        if(generalEdit){
+            onSubmit()
+        }
     };
     function undo(e){
         e.preventDefault();
@@ -42,7 +41,7 @@ export function CustomProfilePic({ text , generalEdit , saveData , addCauntSave 
          <NormalInput text={currentText}  changeHandler={handleChange} name={"profile image"} type={"url"}/>
          </>) :(<>
     {  ( edit ) ? (
-    <form action="submit" onSubmit={formSubmit} className={styles["form"]}>
+    <form action="submit" onSubmit={onSubmit} className={styles["form"]}>
      <NormalInput text={currentText} changeHandler={handleChange} name={"profile image"} type={"url"} />
      <BtnsSubmitAndReject  reject={undo} />
     </form>

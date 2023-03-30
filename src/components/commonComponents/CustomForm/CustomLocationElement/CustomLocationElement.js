@@ -1,4 +1,4 @@
-import { useState  } from "react";
+import { useState} from "react";
 import styles from "./customLocationElement.module.css";
 
 import { BtnEdit } from "../../BtnEdit/BtnEdit";
@@ -6,29 +6,26 @@ import { BtnsSubmitAndReject } from "../../BtnsSubmitAndReject/BtnsSubmitAndReje
 import { NormalLocationInput } from "./NormalLocationInput/NormalLocationInput";
 
 
-export function CustomLocationElement({text , name ,generalEdit , saveData, addCauntSave , save}) {
+export function CustomLocationElement({text, name, generalEdit, saveData}) {
     const [hover , setHover] = useState(false);
     const [edit , setEdit] = useState(false);
     const [currentText , setCurrentText] = useState(text);
 
     const index = Number(name.split(`-`)[1]);
 
-    if(save){
-        saveData(name , currentText); 
-        addCauntSave()
-    }
-
-    function formSubmit(e){
-        e.preventDefault();
+    const onSubmit = (e) => {
         saveData( currentText , index);
         setEdit(false) ; 
-        // return datas !!!!!!!!!
-    }
+     }
+
+
     function handleChange(e){
-        e.preventDefault();
         const locationTitle = e.target.name ;
         const locationValue = e.target.value ;
         setCurrentText( (currentText) => ({...currentText ,  [locationTitle] : locationValue}));
+        if(generalEdit){
+            onSubmit()
+        }
     };
     function undo(e){
         e.preventDefault();
@@ -37,11 +34,11 @@ export function CustomLocationElement({text , name ,generalEdit , saveData, addC
     };
     return (
     <div className={styles["input-container-long"]} >
-{generalEdit ? (<NormalLocationInput changeHandler={handleChange} text={currentText}/>) : (
+{generalEdit ? (<NormalLocationInput changeHandler={handleChange} text={currentText} name= {name}/>) : (
 <>
 { edit ? (
-    <form action="submit" onSubmit={formSubmit} className={styles["form-long"]}>
-    <NormalLocationInput changeHandler={handleChange} text={currentText}/>  
+    <form action="submit" onSubmit={onSubmit} className={styles["form-long"]}>
+    <NormalLocationInput changeHandler={handleChange} text={currentText} name= {name}/>  
           <BtnsSubmitAndReject reject={undo} />
     </form>
   )  :

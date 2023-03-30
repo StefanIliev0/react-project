@@ -1,4 +1,4 @@
-import { useState  } from "react";
+import { useState } from "react";
 import styles from "./customTextAreaElement.module.css";
 
 
@@ -6,25 +6,23 @@ import { BtnEdit } from "../../BtnEdit/BtnEdit";
 import { BtnsSubmitAndReject } from "../../BtnsSubmitAndReject/BtnsSubmitAndReject";
 import { NormalTextarea } from "./NormalTextarea/NormalTextarea";
 
-export function CustomTextAreaElement({text , name , generalEdit, saveData , addCauntSave , save}) {
+export function CustomTextAreaElement({text, name, generalEdit, saveData, setSave}) {
     const [hover , setHover] = useState(false);
     const [edit , setEdit] = useState(false);
     const [currentText , setCurrentText] = useState(text);
 
-    if(save){
-        saveData(name , currentText); 
-        addCauntSave()
-    }
-
-    function formSubmit(e){
-        e.preventDefault();
+    const onSubmit = (e) => {
         saveData(name , currentText);
         setEdit(false) ; 
-        // return datas !!!!!!!!!
-    }
+     }
+
+
     function handleChange(e){
         e.preventDefault();
         setCurrentText(e.target.value);
+        if(generalEdit){
+            onSubmit();
+        }
     };
     function undo(e){
         e.preventDefault();
@@ -36,7 +34,7 @@ export function CustomTextAreaElement({text , name , generalEdit, saveData , add
         {generalEdit ?(<NormalTextarea changeHandler={handleChange} name={name} text={currentText}/>) : (
         <>
         { edit ? (
-    <form action="submit" onSubmit={formSubmit} className={styles["form-area"]}>
+    <form action="submit" onSubmit={onSubmit} className={styles["form-area"]}>
             <NormalTextarea changeHandler={handleChange} name={name} text={currentText}/>
           <BtnsSubmitAndReject reject={undo} />
     </form>

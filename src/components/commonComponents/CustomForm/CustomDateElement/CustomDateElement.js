@@ -1,4 +1,4 @@
-import { useState  } from "react";
+import { useState } from "react";
 import styles from "./customDateElement.module.css";
 
 import { BtnEdit } from "../../BtnEdit/BtnEdit";
@@ -6,30 +6,33 @@ import { BtnsSubmitAndReject } from "../../BtnsSubmitAndReject/BtnsSubmitAndReje
 import { NormalDate } from "./NormalDate/NormalDate";
 
 
-export function CustomDateElement({text , name ,generalEdit, saveData , addCauntSave , save}) {
-    const [hover , setHover] = useState(false);
-    const [edit , setEdit] = useState(false);
-    const [currentText , setCurrentText] = useState(text);
+
+export function CustomDateElement({text, name, generalEdit, saveData}) {
+    const [hover, setHover] = useState(false);
+    const [edit, setEdit] = useState(false);
+    const [currentText, setCurrentText] = useState(text);
     const [oneDayAct, setOneDayAct] = useState(true);
+    const [error , setError] = useState("");
 
-    if(save){
-        saveData(name , currentText); 
-        addCauntSave()
-    }
-
-    function formSubmit(e){
-        e.preventDefault();
+    const onSubmit =(e) => {
+        if(e){
+            e.preventDefault();
+        }
         if(oneDayAct){
             setCurrentText((currentText) => ({from : currentText.from}))
         }
         saveData(name , currentText);
         setEdit(false) ; 
-        // return datas !!!!!!!!!
     }
+ 
     function handleChange(e){
         const dateTitle = e.target.name ;
         const dateValue = e.target.value ;
         setCurrentText( (currentText) => ({...currentText ,  [dateTitle] : dateValue}));
+
+        if(generalEdit){
+        onSubmit()
+        }
     };
     function undo(e){
         e.preventDefault();
@@ -43,11 +46,12 @@ export function CustomDateElement({text , name ,generalEdit, saveData , addCaunt
     text={currentText} 
     changeHandler={handleChange} 
     oneDay={oneDayAct} 
-    changeDays={ () => setOneDayAct(!oneDayAct)}/>
+    changeDays={ () => setOneDayAct(!oneDayAct)}
+    error={error}/>
 ) : 
     (<>
     { edit ? (
-    <form action="submit" onSubmit={formSubmit} className={styles["form-long"]}>
+    <form action="submit" onSubmit={onSubmit} className={styles["form-long"]}>
 
     <NormalDate 
     text={currentText} 
