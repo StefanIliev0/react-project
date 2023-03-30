@@ -19,7 +19,7 @@ export function CreateGroup() {
     return (
 <div  className={styles["container-div"]}>
 <CustomForm generalEdit={true} >
-<CustomInputElement name={"name"} generalEdit={true} text={''} saveData = {saveData}/>
+<CustomInputElement name={"group name"} generalEdit={true} text={''} saveData = {saveData}/>
 <CustomSelectElement name={"preferent type"} generalEdit={true} text={''} saveData = {saveData}/>
 <CustomLocationElement name={"location"} generalEdit={true} text={{}} saveData = {saveData}/>
 <CustomTextAreaElement name={"description"} generalEdit={true} text={''} saveData = {saveData}/>

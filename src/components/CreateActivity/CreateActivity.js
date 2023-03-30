@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "./createActivity.module.css";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 
 
 import {  CustomForm } from '../commonComponents/CustomForm/CustomForm';
@@ -9,9 +10,11 @@ import {CustomSelectElement} from "../commonComponents/CustomForm/CustomSelectEl
 import {CustomTextAreaElement} from "../commonComponents/CustomForm/CustomTextAreaElement/CustomTextAreaElement";
 import { CustomDateElement } from "../commonComponents/CustomForm/CustomDateElement/CustomDateElement";
 import { AccessibilitySelect } from "../commonComponents/CustomForm/AccessibilitySelect/AccessibilitySelect";
+import { CustomButton } from "../commonComponents/CustomButton/CustomButton";
 
 export function CreateAcivity() {
     const [savedData , setSavedData] = useState({});
+    const [numOfLocations , setNumOfLocations] = useState([1])
 
     const groups = [
         {_id : "13" , name : "gosho" } ,
@@ -21,19 +24,32 @@ export function CreateAcivity() {
         {_id : "17" , name : "goshko" } ,
     ];
 
+    function incrementLocations(){
+        setNumOfLocations( (numOfLocations) => ([...numOfLocations , numOfLocations + 1]) ) ;
+    }
+
     function saveData(name , value ){
         setSavedData((currentData) => ({...currentData , [name] : value}))
     } 
+    function saveLocationData(value , index ){
+        setSavedData((currentData)=> {
+             currentData.location[index - 1] = value ;
+            return {...currentData}
+            }) 
+    }
 
     return (
 <div  className={styles["container-div"]}>
 <CustomForm generalEdit={true} >
-<CustomInputElement name={"title"} generalEdit={true} text={''} saveData = {saveData}/>
-<AccessibilitySelect saveData = {saveData} groups = {groups} />
+<CustomInputElement name={"activity title"} generalEdit={true} text={''} saveData = {saveData}/>
+<AccessibilitySelect name={"accessibility"} saveData = {saveData} groups = {groups} />
 <CustomSelectElement name={"type"} generalEdit={true} text={''} saveData = {saveData}/>
 <CustomDateElement name={"date"} generalEdit={true} text={{from:""}} saveData = {saveData}/>
-<CustomLocationElement name={"location"} generalEdit={true} text={{}} saveData = {saveData}/>
-<CustomTextAreaElement name={"description"} generalEdit={true} text={''} saveData = {saveData}/>
+{ numOfLocations.map( (location) => <CustomLocationElement key={location} name={`location-${location}`} generalEdit={true} text={{}} saveData = {saveLocationData}/>)  }
+<div className={styles["plus-btn-div"]}>
+    <CustomButton text={< AiOutlinePlusCircle  className={styles["plus-btn"]} />} type="button" onclick={incrementLocations} />
+</div>
+<CustomTextAreaElement name={"activity description"} generalEdit={true} text={''} saveData = {saveData}/>
 </CustomForm>
 </div>
     )

@@ -1,7 +1,8 @@
 .label-newLine {
-    display: inline;
+    display: inline-block;
     font: 25px bold;
     margin: 25px 0;
+    width: 100%;
 }
 .textarea {  
     height: 300px;

@@ -11,6 +11,8 @@ export function CustomLocationElement({text , name ,generalEdit , saveData, addC
     const [edit , setEdit] = useState(false);
     const [currentText , setCurrentText] = useState(text);
 
+    const index = Number(name.split(`-`)[1]);
+
     if(save){
         saveData(name , currentText); 
         addCauntSave()
@@ -18,7 +20,7 @@ export function CustomLocationElement({text , name ,generalEdit , saveData, addC
 
     function formSubmit(e){
         e.preventDefault();
-        saveData(name , currentText);
+        saveData( currentText , index);
         setEdit(false) ; 
         // return datas !!!!!!!!!
     }

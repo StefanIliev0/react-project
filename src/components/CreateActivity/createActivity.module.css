@@ -2,7 +2,17 @@
     display: inline-block;
     margin: 70px;
     width: 1000px;
-    height: 1000px;
     border: 1px solid black;
     border-radius: 50px;
+}
+.plus-btn {
+    display: block;
+    width: 30px;
+    height: 30px;
+}
+.plus-btn-div{
+    display: block;
+    float: right;
+    margin-top: -100px;
+    margin-right: 250px;
 }
