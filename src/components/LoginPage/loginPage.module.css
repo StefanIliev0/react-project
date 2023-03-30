@@ -27,3 +27,11 @@
     display: inline-block;
     width: 100%;
 }
+.error-div{
+    display: inline-block;
+    font: 25px bold;
+    border: 3px solid red;
+    border-radius: 20px;
+    margin: 15px 0 ;
+    padding: 0 20px;
+}

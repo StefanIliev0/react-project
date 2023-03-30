@@ -12,11 +12,14 @@ import { Profile } from './components/Profile/Profile';
 import { CreateGroup } from './components/CreateGroup/CreateGroup';
 import { LoginPage } from './components/LoginPage/LoginPage';
 import { RegisterPage } from './components/RegisterPage/RegisterPage';
+import {AuthProvider } from './contexts/authContext';
+import { Logout } from './components/Logout/Logout';
 
 function App() {
   return (
- <>
+    <>
  <BrowserRouter >
+  <AuthProvider>
  <Navigation/>
  <Routes>
   <Route path='/' element={<Home />}/>
@@ -29,9 +32,9 @@ function App() {
   <Route path='/profile/:profileId' element={<Profile />} />
   <Route path='/auth/login' element={<LoginPage />} />
   <Route path='/auth/register' element={<RegisterPage />} />
-
-  
+  <Route path='/auth/logout' element= { <Logout />} />
  </Routes>
+ </AuthProvider>
  </BrowserRouter>
  <Footer/>
  </>
