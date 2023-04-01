@@ -10,3 +10,12 @@
     margin-right: 20px;
     border-radius: 10px;
 }
+.err-div{
+    display: inline-block;
+    position: absolute;
+    color: red;
+}
+.err-p{
+    margin: 0;
+    padding: 0;
+}

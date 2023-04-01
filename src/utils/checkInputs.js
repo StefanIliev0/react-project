@@ -41,30 +41,29 @@ export function checkLoginData({email, password}){
   }
 
 
-const checkActivitytitle = (input) => !(/^\w{3,}$/m.test(input))? "Activity title must be more by 2 letters!" : undefined ;
+const checkActivitytitle = (input) => !(/^\w{3,}$/m.test(input))? "Activity title must be more by 2 letters!" : '' ;
 const checkType = (input) => {
 if( input !== "sport" && input !== "relax" && input !== "holiday" && input !== "meeting" && input !== "party" && input !== "trip" && input !== "other"){
  return "Type must be one of the suggested options!";
 }
-return undefined
+return ''
 };
 const checkDate = (input) => {
-  console.log(input.from)
-  if(!(/^\d{4}-\d{2}-\d{2}$/m.test(input.from))){
+  if(!(/^\d{4}-\d{2}-\d{2}$/m.test(input))){
     return "Date must be on current format!" ;
   } ;
-  if(input.to){
-  if(!(/^\d{4}-\d{2}-\d{2}$/m.test(input.from))){
-    return "Date must be on current format!" ;
-  } ;
-  if(input.to < input.from){
-    return  "Starting Date must be before end date" ;
-  }
-}
-return undefined 
+  // if(input){
+  // if(!(/^\d{4}-\d{2}-\d{2}$/m.test(input.from))){
+  //   return "Date must be on current format!" ;
+  // } ;
+  // if(input.to < input.from){
+  //   return  "Starting Date must be before enddate" ;
+  // }
+// }
+return '' 
 };
-const checkALocation = (input) =>  !(/^\w{3,}$/m.test(input.location)) || !(/^\w{3,}$/m.test(input.county))? "Location inputs must be more 2 letters" : undefined ;
-const checkDescription = (input) => !(/^\w{21,}$/m.test(input))? "Description title must be more by 20 letters!" : undefined ;
+const checkALocation = (input) =>  (input.location.length < 3 || input.county.length) > 3 ? "Location inputs must be more 2 letters" : '' ;
+const checkDescription = (input) => input.length < 20? "Description title must be more by 20 letters!" : '' ;
 
 
 export const checkInput = {
@@ -72,5 +71,5 @@ export const checkInput = {
   "type" : checkType , 
   "date" : checkDate ,
   "location" : checkALocation ,
-  "activity descrioption" : checkDescription
+  "activity description" : checkDescription
 }

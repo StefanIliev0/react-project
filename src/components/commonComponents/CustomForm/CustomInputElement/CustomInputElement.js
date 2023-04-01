@@ -1,47 +1,53 @@
-import { useState  } from "react";
+import { useState ,useContext } from "react";
 import styles from "./customInputElement.module.css";
 
 import { BtnEdit } from "../../BtnEdit/BtnEdit";
 import { BtnsSubmitAndReject } from "../../BtnsSubmitAndReject/BtnsSubmitAndReject";
 import { NormalInput } from "./NormalInput/NormalInput";
 
+import { formContext } from "../../../../contexts/formContext";
+import { checkInput } from "../../../../utils/checkInputs";
 
-export function CustomInputElement({type,  text , name , generalEdit , saveData , setSave}) {
+
+export function CustomInputElement({type, name }) {
+    const {saveData , generalEdit , savedData} = useContext(formContext)
     const [hover , setHover] = useState(false);
     const [edit , setEdit] = useState(false);
-    const [currentText , setCurrentText] = useState(text);
-        
+    const [currentText , setCurrentText] = useState({ text : savedData[name] , error : "" });
     
     const onSubmit = (e) => {
-        saveData(name , currentText);
+        e.preventDefault(e) 
+        if(generalEdit){
+            saveData(name , currentText.text , currentText.error );
+        }else{
+        if(!currentText.error){
+        saveData(name , currentText.text);
         if(setEdit){
         setEdit(false) ;
-     }
-    }
+    }}}}
     function handleChange(e){
         e.preventDefault();
-        setCurrentText(e.target.value);
+        setCurrentText({text: e.target.value , error :checkInput[name](e.target.value) });
         if(generalEdit){
-            onSubmit()
-        }
-    };
+            onSubmit(e) ;
+        }};
     function undo(e){
         e.preventDefault();
-        setCurrentText(text);
+        setCurrentText({text: savedData[name] , error : ""});
         setEdit(false) ; 
     };
     return (
     <div className={styles["input-container"]} >
-{generalEdit ? ( <NormalInput text={currentText} changeHandler={handleChange} name={name}  type = {type}/> ): 
+{generalEdit ? ( <NormalInput text={currentText.text} changeHandler={handleChange} name={name}  type = {type} error={currentText.error}/> ): 
 (<>
     { edit ? (
     <form action="submit" onSubmit={onSubmit} className={styles["form"]}>
-     <NormalInput text={currentText} changeHandler={handleChange} name={name} type = {type}/>
+     <NormalInput text={currentText.text} changeHandler={handleChange} name={name} type = {type} error={currentText.error}/>
      <BtnsSubmitAndReject  reject={undo} />
     </form>
   )  :
   ( <div className={styles["input-text-div"]} onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}>
-  <h3 className={styles["h3"]} >{`${name[0].toUpperCase()}${name.substring(1)} : ${currentText}`}</h3>
+  <h3 className={styles["h3"]} >{`${name[0].toUpperCase()}${name.substring(1)} : ${currentText.text}`}</h3>
   {hover && (<BtnEdit onclick={(e) => setEdit(true)}/> )}
     </div>)
 }

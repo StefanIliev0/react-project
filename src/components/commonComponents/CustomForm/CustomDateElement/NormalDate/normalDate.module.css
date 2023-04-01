@@ -21,6 +21,12 @@
     width: 25px;
     height: 25px;
 }
-.error {
-    
+.err-div{
+    display: inline-block;
+    position: absolute;
+    color: red;
+}
+.err-p{
+    margin: 0;
+    padding: 0;
 }

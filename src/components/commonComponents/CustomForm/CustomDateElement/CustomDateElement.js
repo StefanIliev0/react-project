@@ -1,5 +1,10 @@
-import { useState } from "react";
+import { useState ,useContext} from "react";
 import styles from "./customDateElement.module.css";
+
+
+import { formContext } from "../../../../contexts/formContext";
+
+import { checkInput } from "../../../../utils/checkInputs";
 
 import { BtnEdit } from "../../BtnEdit/BtnEdit";
 import { BtnsSubmitAndReject } from "../../BtnsSubmitAndReject/BtnsSubmitAndReject";
@@ -7,36 +12,37 @@ import { NormalDate } from "./NormalDate/NormalDate";
 
 
 
-export function CustomDateElement({text, name, generalEdit, saveData}) {
+
+export function CustomDateElement({name}) {
+    const {saveData , generalEdit , savedData} = useContext(formContext)
     const [hover, setHover] = useState(false);
     const [edit, setEdit] = useState(false);
-    const [currentText, setCurrentText] = useState(text);
+    const [currentText , setCurrentText] = useState({ text : savedData[name] , error : "" });
     const [oneDayAct, setOneDayAct] = useState(true);
-    const [error , setError] = useState("");
 
-    const onSubmit =(e) => {
-        if(e){
-            e.preventDefault();
-        }
-        if(oneDayAct){
-            setCurrentText((currentText) => ({from : currentText.from}))
-        }
-        saveData(name , currentText);
-        setEdit(false) ; 
-    }
+    const onSubmit = (e) => {
+        e.preventDefault(e) ;
+        if(generalEdit) {
+        saveData(name , currentText.text , currentText.error);
+        }else{
+        if(!currentText.error){
+        saveData(name , currentText.text);
+        if(setEdit){
+        setEdit(false) ;
+    }}}}
  
     function handleChange(e){
         const dateTitle = e.target.name ;
         const dateValue = e.target.value ;
-        setCurrentText( (currentText) => ({...currentText ,  [dateTitle] : dateValue}));
+        setCurrentText( (currentText) =>  ( {text :{...currentText.text ,  [dateTitle] : dateValue} , error :checkInput[name](e.target.value)}));
 
         if(generalEdit){
-        onSubmit()
+        onSubmit(e)
         }
     };
     function undo(e){
         e.preventDefault();
-        setCurrentText(text);
+        setCurrentText(savedData[name]);
         setEdit(false) ; 
     };
     return (
@@ -47,7 +53,7 @@ export function CustomDateElement({text, name, generalEdit, saveData}) {
     changeHandler={handleChange} 
     oneDay={oneDayAct} 
     changeDays={ () => setOneDayAct(!oneDayAct)}
-    error={error}/>
+    error={currentText.error}/>
 ) : 
     (<>
     { edit ? (
@@ -57,13 +63,14 @@ export function CustomDateElement({text, name, generalEdit, saveData}) {
     text={currentText} 
     changeHandler={handleChange} 
     oneDay={oneDayAct} 
-    changeDays={() => setOneDayAct(!oneDayAct)}/>
+    changeDays={() => setOneDayAct(!oneDayAct)}
+    error={currentText.error}/>
 
     <BtnsSubmitAndReject reject={undo} />
     </form>
   )  :
   ( <div className={styles["input-div-long"]} onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}>
-  <h3 className={styles["h3"]} >{`Planned date${currentText.to ?"s" : ""}. From: ${new Date(currentText.from).toDateString()}` + (currentText.to ? ` To: ${new Date(currentText.to).toDateString()}` : ``)}</h3>
+  <h3 className={styles["h3"]} >{`Planned date${currentText.text.to ?"s" : ""}. From: ${new Date(currentText.text.from).toDateString()}` + (currentText.text.to ? ` To: ${new Date(currentText.text.to).toDateString()}` : ``)}</h3>
  {hover && (<BtnEdit onclick={(e) => setEdit(true)} />)}
     </div>)
 }

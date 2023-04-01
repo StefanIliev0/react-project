@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useState , useContext} from "react";
 import styles from "./createActivity.module.css";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+
+import { formContext } from "../../contexts/formContext";
+import { AuthContext } from "../../contexts/authContext";
 
 
 import {  CustomForm } from '../commonComponents/CustomForm/CustomForm';
@@ -13,34 +16,42 @@ import { AccessibilitySelect } from "../commonComponents/CustomForm/Accessibilit
 import { CustomButton } from "../commonComponents/CustomButton/CustomButton";
 
 export function CreateAcivity() {
+    const { user } = useContext(AuthContext);
     const [savedData , setSavedData] = useState({
         "activity title" : "",
         "accessibility" : "" ,
         type : "" ,
-        date : {from :""} ,
-        location : [] ,
-        "activity description" : ""
+        date : {from :"" ,to : ""} ,
+        location : [{location : "" , country : ""}] ,
+        "activity description" : "" ,
+        group : ""
     });
-    const [numOfLocations , setNumOfLocations] = useState([1]);
-
-    const groups = [
-        {_id : "13" , name : "gosho" } ,
-        {_id : "14" , name : "misho" } ,
-        {_id : "15" , name : "pesho" } ,
-        {_id : "16" , name : "gasho" } ,
-        {_id : "17" , name : "goshko" } ,
-    ];
+    const [err , setErr] = useState( new Set());
+    const groups = user.groups ; 
 
     function incrementLocations(){
-        setNumOfLocations( (numOfLocations) => ([...numOfLocations , numOfLocations + 1]) ) ;
+        setSavedData( (savedData) => {
+     savedData.location.push({location : "" , country : ""}) ;
+     return {...savedData} ; 
+        } ) ;
     };
 
-    function saveData(name , value ){
+    function saveData(name , value , err ){
+        err ? setErr((err) => err.add(name)) :( 
+        setErr((err) => {
+            err.delete(name) ;
+            return err ;
+        }) ); 
         setSavedData((currentData) => ({...currentData , [name] : value})) ;
     } ;
-    function saveLocationData(value , index ){
+    function saveLocationData(value , index , name , err){
+        err ? setErr((err) => err.add(name)) :( 
+            setErr((err) => {
+                err.delete(name) ;
+                return err ;
+            }) ); 
         setSavedData((currentData)=> {
-            currentData.location[index - 1] = value ;
+            currentData.location[index] = value ;
             return {...currentData};
             }) 
     };
@@ -50,17 +61,19 @@ console.log(savedData);
 
     return (
 <div  className={styles["container-div"]}>
-<CustomForm generalEdit={true} setGeneralSave={submitForm}>
-<CustomInputElement name={"activity title"} generalEdit={true} text={''} type="text" saveData = {saveData}/>
-<AccessibilitySelect name={"accessibility"} saveData = {saveData} groups = {groups} />
-<CustomSelectElement name={"type"} generalEdit={true} text={'sport'} saveData = {saveData} />
-<CustomDateElement name={"date"} generalEdit={true} text={{from:""}} saveData = {saveData} />
-{ numOfLocations.map( (location) => <CustomLocationElement key={location} name={`location-${location}`} generalEdit={true} text={{location : "" , coutry : ""}} saveData = {saveLocationData}/>)  }
+        <formContext.Provider value={({generalEdit : true,  saveData, saveLocationData ,submitForm ,savedData ,groups ,err})}>
+<CustomForm  >
+<CustomInputElement name={"activity title"}  type="text"/>
+<AccessibilitySelect name={"group"}  />
+<CustomSelectElement name={"type"}  />
+<CustomDateElement name={"date"}  />
+{ savedData.location.map( (location , i) => <CustomLocationElement key={i} name={`location-${i}`}/>)  }
 <div className={styles["plus-btn-div"]}>
     <CustomButton text={< AiOutlinePlusCircle  className={styles["plus-btn"]} />} type="button" onclick={incrementLocations} />
 </div>
-<CustomTextAreaElement name={"activity description"} generalEdit={true} text={''} saveData = {saveData} />
+<CustomTextAreaElement name={"activity description"}/>
 </CustomForm>
+</formContext.Provider>
 </div>
     )
 }

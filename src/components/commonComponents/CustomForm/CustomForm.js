@@ -1,9 +1,12 @@
 import styles from "./customForm.module.css";
+import { useContext } from "react";
+
 import { AiOutlineDelete } from "react-icons/ai"
 import { CustomButton } from "../CustomButton/CustomButton";
 
 import { BtnsSubmitAndReject } from "../BtnsSubmitAndReject/BtnsSubmitAndReject";
 import { BtnEdit } from "../BtnEdit/BtnEdit";
+import { formContext } from "../../../contexts/formContext";
 
 
 
@@ -11,22 +14,25 @@ import { BtnEdit } from "../BtnEdit/BtnEdit";
 
 
 
-export function CustomForm({ children, generalEdit, setGeneralEdit, setGeneralSave, reject }) {
+export function CustomForm({ children, reject }) {
+    const { generalEdit, submitForm, setGeneralEdit, err } = useContext(formContext);
     function askForDelete(e) {
         e.preventDefault();
         if (window.confirm('Are you sure you want to delete this item??')) {
-            deleteActivity("id");
+            deleteItem("id");
         }
     }
-    function deleteActivity() {
+    function deleteItem() {
         ///delete item 
     }
     function saveAllData(e) {
         e.preventDefault();
-        setGeneralSave();
-        if(setGeneralEdit ){
-        setGeneralEdit(false);
-    }
+        if (err.size() === 0) {
+            submitForm();
+        }
+        if (setGeneralEdit) {
+            setGeneralEdit(false);
+        }
     }
 
     return (

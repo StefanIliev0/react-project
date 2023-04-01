@@ -11,3 +11,12 @@
     font-size: 15px;
     overflow-y: auto;
 }
+.err-div{
+    display: inline-block;
+    position: absolute;
+    color: red;
+}
+.err-p{
+    margin: 0;
+    padding: 0;
+}

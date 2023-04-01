@@ -7,3 +7,12 @@
     display: inline-block;
     font-size: 20px;
 }
+.err-div{
+    display: inline-block;
+    position: absolute;
+    color: red;
+}
+.err-p{
+    margin: 0;
+    padding: 0;
+}

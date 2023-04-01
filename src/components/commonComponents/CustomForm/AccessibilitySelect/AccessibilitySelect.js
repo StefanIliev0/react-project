@@ -1,12 +1,19 @@
-import styles from "./accessibilitySelect.module.css"
-import { useState } from "react"
 
-export function AccessibilitySelect( {groups , saveData }){
+import { useState ,useContext} from "react" ;
+import styles from "./accessibilitySelect.module.css" ;
+
+import { formContext } from "../../../../contexts/formContext";
+
+export function AccessibilitySelect({name}){
     const [currentText , setCurrentText] = useState("all");
+    const { savedData , saveData , generalEdit , groups} = useContext(formContext);
 
     function handleChange(e){
         e.preventDefault();
         setCurrentText(e.target.value);
+        if(generalEdit){
+        saveData(name , currentText);
+        }
     };
 
     return (
@@ -15,7 +22,7 @@ export function AccessibilitySelect( {groups , saveData }){
              <select id="accessibility" name={"accessibility"} value={currentText} onChange={handleChange} className={styles["select"]}>
                      <option value="all" >All</option>
                      {
-                        groups.map( (group) => <option key={group._id} value={group._id}>{group.name}</option>)
+                      groups &&  groups.map( (group) => <option key={group._id} value={group._id}>{group.name}</option>)
                      }
 
                  </select>
