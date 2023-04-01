@@ -1,19 +1,25 @@
-
-import { useState ,useContext} from "react" ;
+/* eslint-disable */
+import { useState ,useContext ,useEffect} from "react" ;
 import styles from "./accessibilitySelect.module.css" ;
 
 import { formContext } from "../../../../contexts/formContext";
 
 export function AccessibilitySelect({name}){
-    const [currentText , setCurrentText] = useState("all");
     const { savedData , saveData , generalEdit , groups} = useContext(formContext);
+    const [currentText , setCurrentText] = useState(savedData["accessibility"]);
+    useEffect(() => {
+        onEditSubmit();}
+    , [currentText]);
+
+    function onEditSubmit(){
+        if(generalEdit){
+            saveData(name ,currentText );}
+    }
+    
 
     function handleChange(e){
         e.preventDefault();
         setCurrentText(e.target.value);
-        if(generalEdit){
-        saveData(name , currentText);
-        }
     };
 
     return (
@@ -21,6 +27,7 @@ export function AccessibilitySelect({name}){
         <label htmlFor="accessibility" className={styles["label"]}>{`Available for :`}</label>
              <select id="accessibility" name={"accessibility"} value={currentText} onChange={handleChange} className={styles["select"]}>
                      <option value="all" >All</option>
+                     <option value="grupata na sharo" >grupata na sharo</option>
                      {
                       groups &&  groups.map( (group) => <option key={group._id} value={group._id}>{group.name}</option>)
                      }

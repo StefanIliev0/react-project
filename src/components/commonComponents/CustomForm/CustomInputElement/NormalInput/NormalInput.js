@@ -4,6 +4,7 @@ import { useState } from "react"
 export function NormalInput({ name, changeHandler, text, type, error }) {
     const [showError , setShowError] = useState(false)
 
+
     return (
         <>
          {(error && showError)  &&  (<div className={styles["err-div"]}>

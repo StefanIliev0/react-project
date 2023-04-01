@@ -1,28 +1,32 @@
-import React from 'react' ;
+import { useState ,useEffect ,useContext } from "react";
 import styles from "./members.module.css";
+
+import { AuthContext } from "../../contexts/authContext";
 
 import { ProfileDiv } from '../commonComponents/ProfileDiv/ProfileDiv';
 
-export function Members({postOwner = true}) {
+
+
+
+export function Members({members , postOwner , removeMember }) {
+    const {user} = useContext(AuthContext) ;
+    const [normalMembers , setNormalMember] = useState(Object.values(members).filter((x) => x.id !== postOwner)) ;
+    const isOwner = postOwner === user?._id ;
+    const owner = Object.values(members).filter((x) => x.id === postOwner)[0]; 
+
+    useEffect(()=>{
+        setNormalMember(Object.values(members).filter((x) => x.id !== postOwner));
+    },[members,postOwner])
     return (
 <div className={styles["members-div"]}>
-{ !postOwner ? (
+{ !isOwner ? (
     <div className={styles["members-owner-div"]} >
     <h4 className={styles["members-h4"]} >Owner:</h4>
-<ProfileDiv  nickname= "Stefan" imgUrl={"https://cdn-icons-png.flaticon.com/512/3135/3135715.png"}/>
+<ProfileDiv  nickname= {owner?.nickname} imgUrl={owner?.imgUrl} to = {owner?.id} />
     </div>
 ) : null }
 <h4 className={styles["members-h4"]} >Members:</h4>
-<ProfileDiv postOwner={postOwner}  nickname= "gosho" imgUrl={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRD3XP0y2U4ZVpcGsaFUu-tmM7-aD0Luj6FgQgqdJc&s"}/>
-<ProfileDiv postOwner={postOwner} nickname= "ivan" imgUrl={"https://newprofilepic2.photo-cdn.net//assets/images/article/profile.jpg"}/>
-<ProfileDiv postOwner={postOwner}  nickname= "nasko"imgUrl={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRD3XP0y2U4ZVpcGsaFUu-tmM7-aD0Luj6FgQgqdJc&s"}/>
-<ProfileDiv postOwner={postOwner} nickname= "misho"/>
-<ProfileDiv postOwner={postOwner} nickname= "monika"/>
-<ProfileDiv postOwner={postOwner}  nickname= "gosho" imgUrl={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRD3XP0y2U4ZVpcGsaFUu-tmM7-aD0Luj6FgQgqdJc&s"}/>
-<ProfileDiv postOwner={postOwner} nickname= "ivan" imgUrl={"https://newprofilepic2.photo-cdn.net//assets/images/article/profile.jpg"}/>
-<ProfileDiv postOwner={postOwner}  nickname= "nasko"imgUrl={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRD3XP0y2U4ZVpcGsaFUu-tmM7-aD0Luj6FgQgqdJc&s"}/>
-<ProfileDiv postOwner={postOwner} nickname= "misho"/>
-<ProfileDiv postOwner={postOwner} nickname= "monika"/>
+{normalMembers?.map((member) => <ProfileDiv key={member.id} nickname= {member.nickname} imgUrl={member.imgUrl} to = {member.id} postOwner={isOwner} removeUser={removeMember} />)}
 <div className={styles["number-div"]}> 
 </div>
 </div>

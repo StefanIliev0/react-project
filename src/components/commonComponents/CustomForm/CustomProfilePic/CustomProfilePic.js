@@ -1,4 +1,5 @@
-import { useState ,useContext} from "react";
+/* eslint-disable */
+import { useState ,useContext, useEffect} from "react";
 import styles from "./customProfilePic.module.css";
 import {CgProfile} from "react-icons/cg";
 
@@ -16,9 +17,22 @@ export function CustomProfilePic({name}) {
     const [hover , setHover] = useState(false);
     const [edit , setEdit] = useState(false);
     const [currentText , setCurrentText] = useState({ text : savedData[name] , error : "" });
+    useEffect(()=>{
+        setCurrentText({ text : savedData[name] , error : "" })
+    }, [savedData])
+    useEffect(() => {
+        onEditSubmit();}
+    , [currentText]);
+
+    function onEditSubmit(){
+        if(generalEdit){
+        onSubmit();}
+    }
+    
 
     const onSubmit = (e) => {
-        e.preventDefault(e) ;
+        if(e){
+            e.preventDefault(e) ;}
         if(generalEdit){
             saveData(name , currentText.text , currentText.error );
         }else{
@@ -31,9 +45,7 @@ export function CustomProfilePic({name}) {
     function handleChange(e){
         e.preventDefault();
         setCurrentText({text: e.target.value , error :checkInput[name](e.target.value) });
-        if(generalEdit){
-            onSubmit(e) ;
-        }};
+     };
 
     function undo(e){
         e.preventDefault();

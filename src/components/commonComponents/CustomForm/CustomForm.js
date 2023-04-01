@@ -1,7 +1,7 @@
 import styles from "./customForm.module.css";
 import { useContext } from "react";
 
-import { AiOutlineDelete } from "react-icons/ai"
+import { AiOutlineDelete , AiOutlineCheck } from "react-icons/ai"
 import { CustomButton } from "../CustomButton/CustomButton";
 
 import { BtnsSubmitAndReject } from "../BtnsSubmitAndReject/BtnsSubmitAndReject";
@@ -14,8 +14,8 @@ import { formContext } from "../../../contexts/formContext";
 
 
 
-export function CustomForm({ children, reject }) {
-    const { generalEdit, submitForm, setGeneralEdit, err } = useContext(formContext);
+export function CustomForm({ children, reject , joinActivity}) {
+    const { generalEdit, submitForm, setGeneralEdit, err , isOwner , isJoinedMember , isAuthenticated } = useContext(formContext);
     function askForDelete(e) {
         e.preventDefault();
         if (window.confirm('Are you sure you want to delete this item??')) {
@@ -27,7 +27,7 @@ export function CustomForm({ children, reject }) {
     }
     function saveAllData(e) {
         e.preventDefault();
-        if (err.size() === 0) {
+        if (err.size === 0) {
             submitForm();
         }
         if (setGeneralEdit) {
@@ -45,10 +45,16 @@ export function CustomForm({ children, reject }) {
                     {children}
                 </form>
             ) : (<>
-                <div className={styles["edit-div"]}>
-                    <CustomButton text={<AiOutlineDelete className={styles["icon"]} />} onclick={askForDelete} />
-                </div>
-                <BtnEdit onclick={() => setGeneralEdit(true)} />
+                {isOwner ? (<>
+                    <div className={styles["edit-div"]}>
+                        <CustomButton text={<AiOutlineDelete className={styles["icon"]} />} onclick={askForDelete} />
+                    </div>
+                    <BtnEdit onclick={() => setGeneralEdit(true)} />
+                </>) : ( 
+                    (!isJoinedMember && isAuthenticated)  &&  (<div className={styles["edit-div"]}>
+                        <CustomButton text={<AiOutlineCheck className={styles["icon"]} />} onclick={joinActivity} />
+                    </div>)
+                )}
                 {children}
             </>
             )}

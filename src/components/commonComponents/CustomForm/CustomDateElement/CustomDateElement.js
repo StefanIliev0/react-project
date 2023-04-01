@@ -1,4 +1,5 @@
-import { useState ,useContext} from "react";
+/* eslint-disable */
+import { useState ,useContext ,useEffect} from "react";
 import styles from "./customDateElement.module.css";
 
 
@@ -14,14 +15,27 @@ import { NormalDate } from "./NormalDate/NormalDate";
 
 
 export function CustomDateElement({name}) {
-    const {saveData , generalEdit , savedData} = useContext(formContext)
+    const {saveData , generalEdit , savedData , isOwner} = useContext(formContext)
     const [hover, setHover] = useState(false);
     const [edit, setEdit] = useState(false);
     const [currentText , setCurrentText] = useState({ text : savedData[name] , error : "" });
     const [oneDayAct, setOneDayAct] = useState(true);
+    useEffect(()=>{
+        setCurrentText({ text : savedData[name] , error : "" })
+    }, [savedData])
+    useEffect(() => {
+        onEditSubmit();}
+    , [currentText]);
+
+    function onEditSubmit(){
+        if(generalEdit){
+        onSubmit();}
+    }
+    
 
     const onSubmit = (e) => {
-        e.preventDefault(e) ;
+        if(e){
+            e.preventDefault(e) ;}
         if(generalEdit) {
         saveData(name , currentText.text , currentText.error);
         }else{
@@ -35,10 +49,6 @@ export function CustomDateElement({name}) {
         const dateTitle = e.target.name ;
         const dateValue = e.target.value ;
         setCurrentText( (currentText) =>  ( {text :{...currentText.text ,  [dateTitle] : dateValue} , error :checkInput[name](e.target.value)}));
-
-        if(generalEdit){
-        onSubmit(e)
-        }
     };
     function undo(e){
         e.preventDefault();
@@ -56,7 +66,7 @@ export function CustomDateElement({name}) {
     error={currentText.error}/>
 ) : 
     (<>
-    { edit ? (
+    { (edit && isOwner) ? (
     <form action="submit" onSubmit={onSubmit} className={styles["form-long"]}>
 
     <NormalDate 
@@ -71,7 +81,7 @@ export function CustomDateElement({name}) {
   )  :
   ( <div className={styles["input-div-long"]} onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}>
   <h3 className={styles["h3"]} >{`Planned date${currentText.text.to ?"s" : ""}. From: ${new Date(currentText.text.from).toDateString()}` + (currentText.text.to ? ` To: ${new Date(currentText.text.to).toDateString()}` : ``)}</h3>
- {hover && (<BtnEdit onclick={(e) => setEdit(true)} />)}
+ {(hover && isOwner) && (<BtnEdit onclick={(e) => setEdit(true)} />)}
     </div>)
 }
     </>)}

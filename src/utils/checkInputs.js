@@ -41,7 +41,7 @@ export function checkLoginData({email, password}){
   }
 
 
-const checkActivitytitle = (input) => !(/^\w{3,}$/m.test(input))? "Activity title must be more by 2 letters!" : '' ;
+const checkActivitytitle = (input) => input.length < 3 ? "Activity title must be more by 2 letters!" : '' ;
 const checkType = (input) => {
 if( input !== "sport" && input !== "relax" && input !== "holiday" && input !== "meeting" && input !== "party" && input !== "trip" && input !== "other"){
  return "Type must be one of the suggested options!";
@@ -62,7 +62,7 @@ const checkDate = (input) => {
 // }
 return '' 
 };
-const checkALocation = (input) =>  (input.location.length < 3 || input.county.length) > 3 ? "Location inputs must be more 2 letters" : '' ;
+const checkALocation = (input) =>  input.length < 3  ? "Location inputs must be more 2 letters" : '' ;
 const checkDescription = (input) => input.length < 20? "Description title must be more by 20 letters!" : '' ;
 
 

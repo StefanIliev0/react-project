@@ -1,4 +1,4 @@
-import {  requester , factoryRequest } from "../services/requester"
+import {  register ,login ,logout , create , giveMe } from "../services/requester"
 import { checkLoginData, checkRegisterData } from "../utils/checkInputs";
 
 export  async function creteNewUser(data){
@@ -6,11 +6,10 @@ export  async function creteNewUser(data){
     if (error.length > 0){
         throw error ;
     }
-    const {token , id} = await requester.register( data.email , data.password ) ; 
+    const {token , id} = await register( data.email , data.password ) ; 
 
     const userData = {
         _id : id ,
-        token ,
         email  : data.email ,
         nickname : data.nickname ,
         age : data.age ,
@@ -21,20 +20,20 @@ export  async function creteNewUser(data){
         activities : []
     }
 
-   await factoryRequest(token).create(`/users/${id}` , userData ) ; 
+   await create(`/users/${id}` , userData ) ; 
 
-    return userData
+    return {userData , token}
 } ; 
 export async function loginUser({email , password}){
     const error = checkLoginData({email , password});
     if (error.length > 0){
         throw error ;
     }
-    const {token , id} = await requester.login(email , password) ;
-    const userData = await factoryRequest(token).giveMe(`/users/${id}`);
+    const {token , id} = await login(email , password) ;
+    const userData = await giveMe(`/users/${id}`);
     userData.token = token ;
     return userData 
 }
  export async function logoutUser(){
- await requester.logout() ;
+ await logout() ;
  }

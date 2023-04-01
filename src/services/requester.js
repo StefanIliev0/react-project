@@ -1,67 +1,47 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword , signOut } from "firebase/auth";
-import { set ,ref ,update , get , orderByChild , equalTo ,} from "firebase/database";
+import { set ,ref ,update , get , orderByChild , equalTo ,push , orderByValue, query , getDatabase } from "firebase/database";
 import { db, auth } from "./initFirebase";
 
 
 
-const register = async (email , password ) => {
+export const register = async (email , password ) => {
     const  userData = await  createUserWithEmailAndPassword(auth, email, password) ;
     const token = await userData.user.getIdToken() ; 
     return {token , id : userData.user.uid}
 }
 
-const login = async (email , password) => {
+export const login = async (email , password) => {
     const userData = await  signInWithEmailAndPassword(auth, email, password) ;
     const token = userData._tokenResponse.idToken ; 
     return {token , id : userData.user.uid}
 }
 
-const logout = async () => {
+export const logout = async () => {
     await signOut(auth); 
 }
 
-
-const create = async ( headers, path , payload )  => await set(ref(db, path ), payload , headers); 
-const giveMe = async (headers, path ) =>  {
-  const snapshot =   await  get(ref(db, path), headers);
+export const create = async (path , payload)  => await  update(ref(db, path ), payload ); 
+export const giveMe = async (path ) =>  {
+  const snapshot =   await  get(ref(db, path));
 if(snapshot.exists){
     const data = snapshot.val() ;
     return data
 }
 return 
 } ;
+export const add = async (path , payload)  => await  push(ref(db, path ), payload ); 
+export const giveMeAll = async (path) => {
+    const currentQuery = query(ref(db, path)  ,  orderByChild("accessibility") , equalTo("all")) ; 
+   const snapshot =   await  get(currentQuery);
+if(snapshot.exists){
+    const data = snapshot.val() ;
+    return data
+}else{
+    return null 
+}}
 
 
-export const requester = {
-    register ,
-    login , 
-    logout
-}
 
-
-export function factoryRequest(token){
-    let headers ;
-
-    if (!token) {
-        const serializedAuth = localStorage.getItem('auth');
-
-        if (serializedAuth) {
-            const auth = JSON.parse(serializedAuth);
-            token = auth.token;
-        }
-    }
-    if(token){
-        headers = {
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                }} ;       
-    }
-
-     return {
-            create : create.bind(null , headers) ,
-            giveMe : giveMe.bind(null , headers)
-        }
-}
 
 
 
