@@ -21,7 +21,8 @@ export function CustomInputElement({type, name }) {
         onSubmit();}
     }
     useEffect(()=>{
-        setCurrentText({ text : savedData[name] , error : "" })
+        if(!generalEdit){
+        setCurrentText({ text : savedData[name] , error : "" })}
     }, [savedData])
     useEffect(() => {
         onEditSubmit();}

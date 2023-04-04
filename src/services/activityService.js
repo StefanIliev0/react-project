@@ -1,30 +1,64 @@
-import { add ,  create,  giveMe, giveMeAll } from "./requester";
+import { add , update,   create,  giveMe, giveMeAll , giveMeMembers, giveMeOwner, removeUser, replace , addMember } from "./requester";
 
+export async function getAllActivities (){
+   const activites =   await giveMeAll("activity" , "all") ;
+    const remakeActyvity = activites.map( a => ({ 
+        id : a.id  ,
+        date : a.attributes.date ,
+        location : a.attributes.location ,
+        activityTytle : a.attributes.activityTytle ,
+        type : a.attributes.type ,
+    }))
+return remakeActyvity
+}
 
-export async function createNewActivity(data , creator , imgUrl , nickname ){
-    let currentActivity = {...data , _creatorId : creator , members : [{id : creator , imgUrl ,nickname }] } ; 
+export async function createNewActivity(data , creator ){
+    let currentActivity = { 
+        accessibility : data.accessibility , 
+        activityTitle : data["activity title"] ,
+         type : data.type,
+         date : data.date , 
+         location : data.location , 
+         activityDescription : data["activity description"] } ;
 
-     await add("/activities" , currentActivity) 
-    return currentActivity 
+     const fetchCurrentActivity =  await create("activity" , currentActivity , creator ) ; 
+     return {...currentActivity , id : fetchCurrentActivity.id }
 
 }
 
-export async function getAllActivities (creator){
-    
-   const activites =   await giveMeAll("/activities") 
-
-   const arrActivities = Object.entries(activites) ;
-   const arrActivities2 = arrActivities.map(([key,value]) => ({ ...value , "actId" : key })) ;
-return arrActivities2
-
-}
 export async function getActivityDeatails (atcId){
-    const details = await giveMe(`/activities/${atcId}`) ;
-    return details
+    const details  = await giveMe("activity" , atcId) ;
+    const owner = await giveMeOwner("activity" , atcId) ;
+    const members = await giveMeMembers("activity" , atcId) ; 
+    const remakeActyvity = { 
+        id : details.id  ,
+        date : details.attributes.date ,
+        location : details.attributes.location ,
+        "activity title" : details.attributes.activityTitle ,
+        "activity description" : details.attributes.activityDescription ,
+        type : details.attributes.type , 
+        members : members ,
+        _creatorId : owner ,
+    }
+    return remakeActyvity
 }
- export async function joinNewMemberToActivity(member , activity ){
-    await add(`/activities/${activity}/members` , member ) ;
+ export async function joinNewMemberToActivity(activityId){
+  await addMember("activity", activityId) ; 
  }
 export async function updateActivity (data , activityId){
-    await create(`/activities/${activityId}` , data)
+    let currentActivity = { 
+        accessibility : data.accessibility , 
+        activityTitle : data["activity title"] ,
+         type : data.type,
+         date : data.date , 
+         location : data.location , 
+         activityDescription : data["activity description"] } ;
+    await update("activity", currentActivity , activityId) ; 
+}
+
+export async function replaceLocations ( data , activityId){
+   await replace("activity" , "location" , data , activityId) ; 
+}
+export async function removeUserFromActivity (activityId, userId){
+    await removeUser("activity" , activityId , userId) ; 
 }

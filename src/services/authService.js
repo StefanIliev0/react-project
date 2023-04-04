@@ -1,4 +1,6 @@
-import {  register ,login ,logout , create , giveMe } from "../services/requester"
+
+
+import {  register ,login ,logout , create , giveMe , giveMeMy } from "../services/requester"
 import { checkLoginData, checkRegisterData } from "../utils/checkInputs";
 
 export  async function creteNewUser(data){
@@ -6,33 +8,28 @@ export  async function creteNewUser(data){
     if (error.length > 0){
         throw error ;
     }
-    const {token , id} = await register( data.email , data.password ) ; 
-
-    const userData = {
-        _id : id ,
-        email  : data.email ,
-        nickname : data.nickname ,
-        age : data.age ,
-        "interests" : "" ,
-        "location" : {"location" : "" , "county" : ""} ,
-        "imgUrl" : "" ,
-        groups : [] ,
-        activities : []
-    }
-
-   await create(`/users/${id}` , userData ) ; 
-
-    return {userData , token}
+    const newUserData = {nickname : data.nickname , age : data.age , interests : "" , imgUrl : "" , location : {location : "" , country : ""} }
+    const userdata = await register(data.username , data.password , newUserData) ; 
+    newUserData._id = userdata.id
+    return userdata
 } ; 
-export async function loginUser({email , password}){
-    const error = checkLoginData({email , password});
+export async function loginUser({username , password}){
+    const error = checkLoginData({username , password});
     if (error.length > 0){
         throw error ;
     }
-    const {token , id} = await login(email , password) ;
-    const userData = await giveMe(`/users/${id}`);
-    userData.token = token ;
-    return userData 
+    const userData = await login(username , password) ;
+
+    const user = {
+        _id : userData.id ,
+         imgUrl : userData.attributes.imgUrl ,
+         interests : userData.attributes.interests ,
+         age : userData.attributes.age ,
+         location : userData.attributes.location ,
+         nickname : userData.attributes.nickname ,
+         }
+
+    return  user
 }
  export async function logoutUser(){
  await logout() ;

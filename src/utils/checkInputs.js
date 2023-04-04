@@ -1,10 +1,10 @@
 
-export function checkRegisterData({email, password ,repeatPassword ,nickname, age }){
+export function checkRegisterData({username, password ,repeatPassword ,nickname, age }){
 
 let errors = [] ;
 
-  if(!(/^.+@\w+\.\w+$/m.test(email))){
-    errors.push({ message : "Email is`t corect!"});
+  if(username.length < 5 ){
+    errors.push({ message : "Username must be more 5 characters length!"});
   };
   if(!(/^.{6,}$/m.test(password))){
     errors.push({ message : "Password must be more 5 characters length!"});
@@ -25,19 +25,17 @@ let errors = [] ;
 
 }
 
-export function checkLoginData({email, password}){
+export function checkLoginData({username, password}){
 
   let errors = [] ;
   
-    if(!(/^.+@\w+\.\w+$/m.test(email))){
-      errors.push( { message : "Email is`t corect!"});
+    if(username.length < 5 ){
+      errors.push( { message : "Username must be more 5 characters length!"});
     };
     if(!(/^.{6,}$/m.test(password))){
       errors.push({ message : "Password must be more 5 characters length!"});
     };
     return errors
-  
-  
   }
 
 
@@ -62,14 +60,17 @@ const checkDate = (input) => {
 // }
 return '' 
 };
-const checkALocation = (input) =>  input.length < 3  ? "Location inputs must be more 2 letters" : '' ;
+const checkLocation = (input) =>  input.length < 3  ? "Location inputs must be more 2 letters" : '' ;
 const checkDescription = (input) => input.length < 20? "Description title must be more by 20 letters!" : '' ;
-
+const checkGroupName = (input) => input.length < 3 ? "Group name must be more by 2 letters!" : '' ;
 
 export const checkInput = {
   "activity title" : checkActivitytitle ,
   "type" : checkType , 
   "date" : checkDate ,
-  "location" : checkALocation ,
-  "activity description" : checkDescription
+  "location" : checkLocation ,
+  "activity description" : checkDescription,
+  "group name": checkGroupName,
+  "preferent type": checkType,
+  "group description": checkDescription ,  
 }

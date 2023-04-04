@@ -18,7 +18,8 @@ export function CustomLocationElement({name}) {
     const index = Number(name.split(`-`)[1]);
     const [currentText , setCurrentText] = useState({ text :  savedData.location[index] , error : "" }); 
     useEffect(()=>{
-        setCurrentText({ text : savedData.location[index] , error : "" })
+        if(!generalEdit){
+        setCurrentText({ text : savedData.location[index] , error : "" })}
     }, [savedData])
        useEffect(() => {
         onEditSubmit();}
@@ -59,7 +60,7 @@ export function CustomLocationElement({name}) {
 <>
 { (edit && isOwner) ? (
     <form action="submit" onSubmit={onSubmit} className={styles["form-long"]}>
-    <NormalLocationInput changeHandler={handleChange} text={currentText.text} name= {name} error = {currentText.error}/>  
+    <NormalLocationInput changeHandler={handleChange} text={currentText.text} name={name} error = {currentText.error}/>  
           <BtnsSubmitAndReject reject={undo} />
     </form>
   )  :

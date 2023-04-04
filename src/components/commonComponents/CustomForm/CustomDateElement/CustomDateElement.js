@@ -21,7 +21,8 @@ export function CustomDateElement({name}) {
     const [currentText , setCurrentText] = useState({ text : savedData[name] , error : "" });
     const [oneDayAct, setOneDayAct] = useState(true);
     useEffect(()=>{
-        setCurrentText({ text : savedData[name] , error : "" })
+        if(!generalEdit){
+        setCurrentText({ text : savedData[name] , error : "" })}
     }, [savedData])
     useEffect(() => {
         onEditSubmit();}

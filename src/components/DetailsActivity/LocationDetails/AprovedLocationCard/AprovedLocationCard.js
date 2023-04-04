@@ -5,7 +5,7 @@ export function AprovedLocationCard({data}) {
 
     return (
 <div className={styles["location-card-div"]}>
-<h4>{data.title}</h4>
+<h4>{`${data.location}, ${data.country}`}</h4>
 </div>
     )
 }

@@ -27,7 +27,6 @@ export function AccessibilitySelect({name}){
         <label htmlFor="accessibility" className={styles["label"]}>{`Available for :`}</label>
              <select id="accessibility" name={"accessibility"} value={currentText} onChange={handleChange} className={styles["select"]}>
                      <option value="all" >All</option>
-                     <option value="grupata na sharo" >grupata na sharo</option>
                      {
                       groups &&  groups.map( (group) => <option key={group._id} value={group._id}>{group.name}</option>)
                      }

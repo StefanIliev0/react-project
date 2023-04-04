@@ -5,12 +5,12 @@ import { useState } from 'react';
 
 import {CgProfile } from "react-icons/cg"
 
-export function ProfileDiv({to , postOwner, imgUrl , nickname , removeUser}) {
+export function ProfileDiv({ path , to , postOwner, imgUrl , nickname , removeUser}) {
    const [isHovered , setIsHovered] = useState(false); 
    const [remove , setRemove] = useState(false); 
 
    function removeUserFromActivity(e){
-    removeUser(to) ;
+    removeUser(to ,path) ;
    }
 
     return (

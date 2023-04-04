@@ -15,7 +15,7 @@ export function Activities() {
     const userActivites = useMemo(() =>  user?.activities || [] , [user])  ; 
 
     useEffect(()=>{
-         getAllActivities(user._id).then((value) =>{
+         getAllActivities().then((value) =>{
             setActivities((activity) => ([...value , ...userActivites]))
          }).catch((err) => console.log(err))
 
@@ -32,12 +32,12 @@ export function Activities() {
             <div className={styles["activity-div"]}>
             {activities !== [] && activities.map((act) =>  (
             <ActivityCard  
-            name = {act.actId}
-            key={act.actId} 
-            title={act["activity title"]} 
-            date={act.date} 
-            type={act.type} 
-            location={act.location}
+            name = {act?.id}
+            key={act?.id} 
+            title={act.activityTitle} 
+            date={act?.date} 
+            type={act?.type} 
+            location={act?.location}
             />) )}
             </div>
         </div>

@@ -50,13 +50,13 @@ export function RegisterPage() {
                 </div>
             )}
             <form onSubmit={formSubmit} className={styles["form"]}>
-                <label htmlFor="email" className={styles["label"]}>{`Email :`}</label>
+                <label htmlFor="username" className={styles["label"]}>{`Username :`}</label>
                 <input
-                    id="email"
+                    id="username"
                     className={styles["input"]}
-                    name="email"
-                    type="email"
-                    value={currentData.email}
+                    name="username"
+                    type="text"
+                    value={currentData.username}
                     onChange={changeHandler} />
                 <label htmlFor="password" className={styles["label"]}>{`Password :`}</label>
                 <input

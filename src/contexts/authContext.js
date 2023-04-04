@@ -20,8 +20,8 @@ export const AuthProvider = ({
     
     }
     const onRegister = async (data) => {
-            const {result , token } = await creteNewUser(data) ; 
-            setAuth({...result , token } );
+            const newUser = await creteNewUser(data) ; 
+            setAuth(newUser);
             navigate('/activities');
     };
 
@@ -32,20 +32,29 @@ export const AuthProvider = ({
     };
     const addNewActivity = (newActivity) => {
     if(auth.acivities){
-      setAuth((auth) => ({...auth , acivities : [...auth.acivities , newActivity]})) 
+       setAuth((auth) => ({...auth , acivities : [...auth.acivities , newActivity]})) 
     }else{
-        setAuth((auth) => ({...auth , acivities : [newActivity]}))
+         setAuth((auth) => ({...auth , acivities : [newActivity]}))
     }
+    }
+    // const addNewGroup = (newGroup) => {
+    //     if(auth.groups){
+    //       setAuth((auth) => ({...auth , groups : [...auth.groups , newGroup]})) 
+    //     }else{
+    //         setAuth((auth) => ({...auth , groups : [newGroup]}))
+    //     }
+    //     }
     
-    }
 
     const contextValues = {
+        addNewActivity ,
+        // addNewGroup ,
         onLogin,
         onRegister ,
         onLogout , 
-        addNewActivity ,
+        userId : auth._id ,
         user: auth ,
-        isAuthenticated: !!auth.token,
+        isAuthenticated: !!auth._id, 
     };
 
     return (

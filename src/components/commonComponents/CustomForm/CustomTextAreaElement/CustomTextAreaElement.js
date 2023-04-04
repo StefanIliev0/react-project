@@ -16,7 +16,8 @@ export function CustomTextAreaElement({name}) {
     const [edit , setEdit] = useState(false);
     const [currentText , setCurrentText] = useState({ text : savedData[name] , error : "" });
     useEffect(()=>{
-        setCurrentText({ text : savedData[name] , error : "" })
+        if(!generalEdit){
+        setCurrentText({ text : savedData[name] , error : "" })}
     }, [savedData])
     useEffect(() => {
         onEditSubmit();}

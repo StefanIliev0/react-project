@@ -24,7 +24,7 @@ export function CreateAcivity() {
         "accessibility": "all",
         type: "",
         date: { from: "", to: "" },
-        location: [{ location: "", country: "" }],
+        location: [{ location: "", country: "" , aproved : true}],
         "activity description": "" , 
     });
     const [err, setErr] = useState(new Set());
@@ -59,7 +59,8 @@ export function CreateAcivity() {
     };
     async function submitForm() {
         try{
-        const newActivity = await createNewActivity(savedData, user._id , user.imgUrl , user.nickname );
+            console.log(user._id)
+        const newActivity = await createNewActivity(savedData, user._id);
         addNewActivity(newActivity);
         navigate("/activities");
     }catch(err){

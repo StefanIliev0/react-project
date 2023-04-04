@@ -15,7 +15,7 @@ export function ActivityCard({ name , title , date ,type, location}) {
     <h4>{title}</h4>
     <h5>Planing Date : {date.from}</h5>
     <p>Type of Activity : {type}</p>
-    <p>location : {`${location[0].location}, ${location[0].country}` }</p>
+    <p>location : {`${location[0]?.location}, ${location[0]?.country}` }</p>
     </div>
     <div>
     <CustomLink to={`/activities/${name}`} text = "Details"/>
