@@ -29,7 +29,7 @@ useEffect(()=> {
     getActivityDeatails(activityId).then((result)=>{
         const currentActivity = result ;
         setActivity(currentActivity);
-        setNumofMembers(Object.values(currentActivity.members).length)
+        setNumofMembers( currentActivity.members.length)
 
     }).catch((err)=> {console.log(err)})
 }, [activityId]) ;
