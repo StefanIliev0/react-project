@@ -30,6 +30,15 @@ export async function getActivityDeatails (atcId){
     const details  = await giveMe("activity" , atcId) ;
     const owner = await giveMeOwner("activity" , atcId) ;
     const members = await giveMeMembers("activity" , atcId) ; 
+    const remakeOwner = {
+        id : owner[0].id ,
+        imgUrl : owner[0].attributes.imgUrl ,
+        nickname : owner[0].attributes.nickname 
+};
+    const remakeMembers = members.map(m => ({ id : m.id ,
+   imgUrl : m.attributes.imgUrl ,
+   nickname : m.attributes.nickname 
+})) ;
     const remakeActyvity = { 
         id : details.id  ,
         date : details.attributes.date ,
@@ -37,8 +46,8 @@ export async function getActivityDeatails (atcId){
         "activity title" : details.attributes.activityTitle ,
         "activity description" : details.attributes.activityDescription ,
         type : details.attributes.type , 
-        members : members ,
-        _creatorId : owner ,
+        members : remakeMembers ,
+        creator : remakeOwner ,
     }
     return remakeActyvity
 }
