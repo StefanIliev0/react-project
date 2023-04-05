@@ -14,7 +14,7 @@ import { CustomTextAreaElement } from "../../commonComponents/CustomForm/CustomT
 
 
 
-export function ActivityDetail({ details , sendData , jounToActivity }) {
+export function ActivityDetail({ details , sendData , jounToActivity,  removeFromActivity}) {
     const [generalEdit, setGeneralEdit] = useState(false);
     const [savedData, setSavedData] = useState(details);
     const [err, setErr] = useState(new Set());
@@ -24,7 +24,7 @@ export function ActivityDetail({ details , sendData , jounToActivity }) {
     } , [details])
 
 
-    const isOwner = user?._id === details.creator ; 
+    const isOwner = user?._id === details.creator.id ; 
     let isJoinedMember = Object.values(details.members).find(x => x.id === user._id) ; 
 
     function saveData(name, value, err) {
@@ -71,11 +71,14 @@ export function ActivityDetail({ details , sendData , jounToActivity }) {
       await   jounToActivity(newMember) ;
      addNewActivity(details) ;
     }
+    async function unsubscribeToActivity(userId){
+     await removeFromActivity(userId);
+    }
     
     return (
         <div className={styles["details-div"]}>
             <formContext.Provider value={({savedData , generalEdit , saveData , submitForm ,saveLocationData , err , isOwner , isAuthenticated , isJoinedMember})}>
-            <CustomForm  setGeneralEdit={setEdit} reject={reject}  joinActivity={joinActivity} >
+            <CustomForm  setGeneralEdit={setEdit} reject={reject}  join={joinActivity}  unsubscribe={unsubscribeToActivity} >
                 <CustomInputElement name={"activity title"} type={"text"}  />
                 <CustomSelectElement name={"type"} />
                 <CustomDateElement name={"date"} />

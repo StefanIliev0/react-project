@@ -52,7 +52,32 @@ export const giveMeAllCandidates = async (type) => {
     })
     return candidates;
 }
-
+export const giveMeOwner = async (type, id) => {
+    const newParseQuery = new Parse.Query(type);
+    newParseQuery.include("ownerId");
+    const currentParse = await newParseQuery.get(id);
+    const owner = await currentParse.relation("ownerId").query().find();
+    return owner;
+};
+export const giveMeCandidates = async (type, id) => {
+    const newParseQuery = new Parse.Query(type);
+    newParseQuery.include("candidates");
+    const currentParse = await newParseQuery.get(id);
+    const candidates = await currentParse.relation("candidates").query().find();
+    return candidates;
+}
+export const giveMeMembers = async (type, id) => {
+    const newParseQuery = new Parse.Query(type);
+    newParseQuery.include("members");
+    const currentParse = await newParseQuery.get(id);
+    const members = await currentParse.relation("members").query().find();
+    return members;
+}; 
+export const giveMe = async (type, id) => {
+    const newParseQuery = new Parse.Query(type);
+    const currentParse = await newParseQuery.get(id);
+    return currentParse
+}
 export const create = async (type, data) => {
     const Owner = Parse.User.current();
     const newParseQuery = new Parse.Object(type, data);
@@ -66,24 +91,17 @@ export const create = async (type, data) => {
     await Owner.save();
     return newActivity;
 };
-export const giveMeOwner = async (type, id) => {
-    const newParseQuery = new Parse.Query(type);
-    newParseQuery.include("ownerId");
-    const currentParse = await newParseQuery.get(id);
-    const owner = await currentParse.relation("ownerId").query().find();
-    return owner;
+export const update = async (type, data, id) => {
+    const newParseQuery = await new Parse.Query(type).get(id);
+    Object.keys(data).forEach(k => {
+        newParseQuery.set(k, data[k]);
+    })
+    await newParseQuery.save();
 }
-export const giveMeMembers = async (type, id) => {
-    const newParseQuery = new Parse.Query(type);
-    newParseQuery.include("members");
-    const currentParse = await newParseQuery.get(id);
-    const members = await currentParse.relation("members").query().find();
-    return members;
-}; 
-export const giveMe = async (type, id) => {
-    const newParseQuery = new Parse.Query(type);
-    const currentParse = await newParseQuery.get(id);
-    return currentParse
+export const replace = async (type, key, data, id) => {
+    const newParseQuery = await new Parse.Query(type).get(id);
+    newParseQuery.set(key, data);
+    await newParseQuery.save();
 }
 export const addMember = async (type, id) => {
     const user = Parse.User.current();
@@ -105,18 +123,6 @@ export const addCandidate = async (type, id) => {
     const newGroup = await newParseQuery.save();
     return newGroup;
 }
-export const update = async (type, data, id) => {
-    const newParseQuery = await new Parse.Query(type).get(id);
-    Object.keys(data).forEach(k => {
-        newParseQuery.set(k, data[k]);
-    })
-    await newParseQuery.save();
-}
-export const replace = async (type, key, data, id) => {
-    const newParseQuery = await new Parse.Query(type).get(id);
-    newParseQuery.set(key, data);
-    await newParseQuery.save();
-}
 export const removeUser = async (type, ObjectId, userId) => {
     let userProperty;
     const currentUser = await new Parse.Query("_User").get(userId);
@@ -124,13 +130,41 @@ export const removeUser = async (type, ObjectId, userId) => {
     if (type === "activity") {
         userProperty = "activities";
     } else if (type === "group") {
-        userProperty = "groups"
+        userProperty = "groups";
     }
     currentUser.relation(userProperty).remove(currentObject);
-    currentObject.relation(type).remove(currentUser);
+    currentObject.relation("members").remove(currentUser);
     await currentObject.save();
     await currentUser.save();
 }
+export const approveUser = async (type, ObjectId, userId) => {
+    let userProperty;
+    const currentUser = await new Parse.Query("_User").get(userId);
+    const currentObject = await new Parse.Query(type).get(ObjectId);
+    if (type === "activity") {
+        userProperty = "activities";
+    } else if (type === "group") {
+        userProperty = "groups";
+    }
+    currentUser.relation(userProperty).add(currentObject);
+    currentObject.relation("candidates").remove(currentUser);
+    currentObject.relation("members").add(currentUser);
+    await currentObject.save();
+    await currentUser.save();
+}
+export const unapproveUser = async (type, ObjectId, userId) => {
+    let userProperty;
+    const currentUser = await new Parse.Query("_User").get(userId);
+    const currentObject = await new Parse.Query(type).get(ObjectId);
+    if (type === "activity") {
+        userProperty = "activities";
+    } else if (type === "group") {
+        userProperty = "groups";
+    }
+    currentObject.relation("candidates").remove(currentUser);
+    await currentObject.save();
+}
+
 
 
 

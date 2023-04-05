@@ -34,7 +34,7 @@ useEffect(()=> {
     }).catch((err)=> {console.log(err)})
 }, [activityId]) ;
 const {userId} = useContext(AuthContext)
- const isMember = !!Object.values(activity.members).find((m) => m.id === userId) ;
+ const isMember = !!activity.members.find((m) => m.id === userId) ;
 
 async function joinToActivity (userData){
     try{
@@ -52,7 +52,7 @@ async function sendData(data){
     }
 }
 async function removeUser(memberId){
- setActivity((act) => ({...act , members : Object.values(act.members).filter(x => x.id !== userId)}));
+ setActivity((act) => ({...act , members : act.members.filter(x => x.id !== userId)}));
  try{
  await removeUserFromActivity (activityId , memberId ) ; 
 }catch(err){
@@ -62,11 +62,12 @@ async function removeUser(memberId){
 function updateLocations(data){
     setActivity((act) => ({...act , location : data}))
 }
+
     return (
 <>
 <div className={styles["container-div"]}> 
 
-<ActivityDetail details={activity} sendData ={sendData} jounToActivity = {joinToActivity}/>
+<ActivityDetail details={activity} sendData ={sendData} jounToActivity = {joinToActivity} removeFromActivity={removeUser}/>
 
 <Members members={activity.members} postOwner={activity.creator} removeMember={removeUser}/>
 

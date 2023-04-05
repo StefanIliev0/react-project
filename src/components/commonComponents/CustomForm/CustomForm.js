@@ -1,7 +1,7 @@
 import styles from "./customForm.module.css";
 import { useContext } from "react";
 
-import { AiOutlineDelete , AiOutlineCheck } from "react-icons/ai"
+import { AiOutlineDelete , AiOutlineCheck , AiOutlineClose} from "react-icons/ai"
 import { CustomButton } from "../CustomButton/CustomButton";
 
 import { BtnsSubmitAndReject } from "../BtnsSubmitAndReject/BtnsSubmitAndReject";
@@ -14,7 +14,7 @@ import { formContext } from "../../../contexts/formContext";
 
 
 
-export function CustomForm({ children, reject , joinActivity}) {
+export function CustomForm({ children, reject , join , unsubscribe}) {
     const { generalEdit, submitForm, setGeneralEdit, err , isOwner , isJoinedMember , isAuthenticated } = useContext(formContext);
     function askForDelete(e) {
         e.preventDefault();
@@ -51,9 +51,12 @@ export function CustomForm({ children, reject , joinActivity}) {
                     </div>
                     <BtnEdit onclick={() => setGeneralEdit(true)} />
                 </>) : ( 
-                    (!isJoinedMember && isAuthenticated)  &&  (<div className={styles["edit-div"]}>
-                        <CustomButton text={<AiOutlineCheck className={styles["icon"]} />} onclick={joinActivity} />
+                   (!isJoinedMember && isAuthenticated)  &&  (<div className={styles["edit-div"]}>
+                        <CustomButton text={<AiOutlineCheck className={styles["icon"]} />} onclick={join} />
                     </div>)
+                    (isJoinedMember && isAuthenticated)  &&  (<div className={styles["edit-div"]}>
+                    <CustomButton text={<AiOutlineClose className={styles["icon"]} />} onclick={unsubscribe} />
+                </div>)
                 )}
                 {children}
             </>
