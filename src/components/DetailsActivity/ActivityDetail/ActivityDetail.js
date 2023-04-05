@@ -24,7 +24,7 @@ export function ActivityDetail({ details , sendData , jounToActivity }) {
     } , [details])
 
 
-    const isOwner = user?._id === details._creatorId ; 
+    const isOwner = user?._id === details.creator ; 
     let isJoinedMember = Object.values(details.members).find(x => x.id === user._id) ; 
 
     function saveData(name, value, err) {
