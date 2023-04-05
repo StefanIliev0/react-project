@@ -10,11 +10,11 @@ import { ProfileDiv } from '../commonComponents/ProfileDiv/ProfileDiv';
 
 export function Members({members , postOwner , removeMember }) {
     const {user} = useContext(AuthContext) ;
-    const [normalMembers , setNormalMember] = useState(members?.map(a => ({id : a?.id , imgUrl : a?.attributes?.imgUrl ,  nickname : a?.attributes?.nickname}))) ;
+    const [normalMembers , setNormalMember] = useState(members) ;
     const isOwner = postOwner?.id === user?._id ;
     useEffect(()=>{
-        setNormalMember(Object.entries(members).map(([k,v])=> ({...v , _id : k})).filter((x) => x.id !== postOwner.id));
-    },[members,postOwner?.id , setNormalMember ])
+        setNormalMember(members)
+    },[members ])
 
     return (<>
  <div className={styles["members-div"]}>
@@ -22,12 +22,12 @@ export function Members({members , postOwner , removeMember }) {
     
     <div className={styles["members-owner-div"]} >
     <h4 className={styles["members-h4"]} >Owner:</h4>
-<ProfileDiv  nickname={postOwner?.attributes?.nickname} imgUrl={postOwner?.attributes?.imgUrl} to = {postOwner?.id} />
+<ProfileDiv  nickname={postOwner?.nickname} imgUrl={postOwner?.imgUrl} to = {postOwner?.id} />
     </div>
 ) : null }
 <h4 className={styles["members-h4"]} >Members:</h4>
 {normalMembers?.map((member) => {
-   return    <ProfileDiv key={member.id} nickname= {member?.attributes?.nickname} imgUrl={member?.attributes?.imgUrl} to = {member?.attributes?.id} postOwner={isOwner} removeUser={removeMember} path={member.id}/>})}
+   return    <ProfileDiv key={member.id} nickname= {member?.nickname} imgUrl={member?.imgUrl} to = {member?.id} postOwner={isOwner} removeUser={removeMember} path={member.id}/>})}
 <div className={styles["number-div"]}> 
 </div>
 </div> 
