@@ -68,7 +68,7 @@ function updateLocations(data){
 
 <ActivityDetail details={activity} sendData ={sendData} jounToActivity = {joinToActivity}/>
 
-<Members members={activity.members} postOwner={activity.creatorId} removeMember={removeUser}/>
+<Members members={activity.members} postOwner={activity.creator} removeMember={removeUser}/>
 
 <LocationDetails locations={activity.location} isMember ={isMember} numOfMembers={NumOfMembers} activityId={activityId} updateLocations = {updateLocations} isOwner={userId === activity?.creator.id} />
 
