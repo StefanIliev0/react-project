@@ -20,7 +20,7 @@ const initialActivity = {
     location: [{ location: "", country: "" }],
     "activity description": "" , 
     members : [] ,
-    _creatorId :{ id : "" ,ingUrl : "" , nickname : ""},
+    creator :{ id : "" ,ingUrl : "" , nickname : ""},
 };
 const [activity , setActivity] = useState(initialActivity);
 const {activityId} = useParams() ;
