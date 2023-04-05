@@ -20,7 +20,7 @@ const initialActivity = {
     location: [{ location: "", country: "" }],
     "activity description": "" , 
     members : [] ,
-    _creatorId :[ { id : "" ,ingUrl : "" , nickname : ""}] ,
+    _creatorId :{ id : "" ,ingUrl : "" , nickname : ""},
 };
 const [activity , setActivity] = useState(initialActivity);
 const {activityId} = useParams() ;
@@ -68,9 +68,9 @@ function updateLocations(data){
 
 <ActivityDetail details={activity} sendData ={sendData} jounToActivity = {joinToActivity}/>
 
-<Members members={activity.members} postOwner={activity._creatorId[0]} removeMember={removeUser}/>
+<Members members={activity.members} postOwner={activity.creatorId} removeMember={removeUser}/>
 
-<LocationDetails locations={activity.location} isMember ={isMember} numOfMembers={NumOfMembers} activityId={activityId} updateLocations = {updateLocations} isOwner={userId === activity?._creatorId[0]?.id} />
+<LocationDetails locations={activity.location} isMember ={isMember} numOfMembers={NumOfMembers} activityId={activityId} updateLocations = {updateLocations} isOwner={userId === activity?.creator.id} />
 
 </div>
 </>
