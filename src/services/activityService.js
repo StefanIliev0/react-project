@@ -1,4 +1,4 @@
-import { add , update,   create,  giveMe, giveMeAll , giveMeMembers, giveMeOwner, removeUser, replace , addMember } from "./requester";
+import { update,   create,  giveMe, giveMeAll , giveMeMembers, giveMeOwner, removeUser, replace , addMember } from "./requester";
 
 export async function getAllActivities (){
    const activites =   await giveMeAll("activity" , "all") ;
@@ -22,7 +22,7 @@ export async function createNewActivity(data , creator ){
          activityDescription : data["activity description"] } ;
 
      const fetchCurrentActivity =  await create("activity" , currentActivity , creator ) ; 
-     return {...currentActivity , id : fetchCurrentActivity.id }
+     return {title : data["activity title"] , id : fetchCurrentActivity.id }
 
 }
 

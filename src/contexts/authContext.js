@@ -37,18 +37,18 @@ export const AuthProvider = ({
          setAuth((auth) => ({...auth , acivities : [newActivity]}))
     }
     }
-    // const addNewGroup = (newGroup) => {
-    //     if(auth.groups){
-    //       setAuth((auth) => ({...auth , groups : [...auth.groups , newGroup]})) 
-    //     }else{
-    //         setAuth((auth) => ({...auth , groups : [newGroup]}))
-    //     }
-    //     }
+    const addNewGroup = (newGroup) => {
+        if(auth.groups){
+          setAuth((auth) => ({...auth , groups : [...auth.groups , newGroup]})) 
+        }else{
+            setAuth((auth) => ({...auth , groups : [newGroup]}))
+        }
+        }
     
 
     const contextValues = {
         addNewActivity ,
-        // addNewGroup ,
+        addNewGroup ,
         onLogin,
         onRegister ,
         onLogout , 

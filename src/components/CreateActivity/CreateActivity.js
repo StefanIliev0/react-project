@@ -59,7 +59,6 @@ export function CreateAcivity() {
     };
     async function submitForm() {
         try{
-            console.log(user._id)
         const newActivity = await createNewActivity(savedData, user._id);
         addNewActivity(newActivity);
         navigate("/activities");

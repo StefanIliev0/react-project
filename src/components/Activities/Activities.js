@@ -10,16 +10,15 @@ import { getAllActivities } from "../../services/activityService";
 
 
 export function Activities() {
-    const [activities , setActivities] = useState([]);
     const{ user ,isAuthenticated }  = useContext(AuthContext); 
-    const userActivites = useMemo(() =>  user?.activities || [] , [user])  ; 
+    const userActivites = user?.activities || []  ; 
+    const [activities , setActivities] = useState(userActivites);
 
     useEffect(()=>{
          getAllActivities().then((value) =>{
-            setActivities((activity) => ([...value , ...userActivites]))
-         }).catch((err) => console.log(err))
-
-    },[user._id ,userActivites])
+            setActivities((activity) => ([...activity , ...value])); 
+         }).catch((err) => console.log(err)); 
+    },[])
 
     return (
         <div >

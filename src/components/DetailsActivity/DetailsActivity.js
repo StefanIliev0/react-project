@@ -51,7 +51,7 @@ async function sendData(data){
         console.log(err)
     }
 }
-async function removeUser(userId , memberId){
+async function removeUser(memberId){
  setActivity((act) => ({...act , members : Object.values(act.members).filter(x => x.id !== userId)}));
  try{
  await removeUserFromActivity (activityId , memberId ) ; 
