@@ -46,9 +46,9 @@ export function CreateGroup() {
     };
     async function submitForm() {
         try{
-        const newActivity = await createNewGroup(savedData, user._id);
-        addNewGroup(newActivity);
-        navigate("/activities");
+        const newGroup = await createNewGroup(savedData, user._id);
+        addNewGroup(newGroup);
+        navigate("/groups");
     }catch(err){
         console.log(err.message) ; 
     }

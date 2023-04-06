@@ -1,4 +1,4 @@
-import { useContext, useEffect ,useState , useMemo} from "react";
+import { useContext, useEffect ,useState } from "react";
 import styles from "./activities.module.css";
 
 import {AuthContext} from "../../contexts/authContext"

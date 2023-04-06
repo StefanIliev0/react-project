@@ -1,4 +1,4 @@
-import { useState , useContext } from 'react';
+import { useState , useContext, useEffect } from 'react';
 import styles from "./groupDetails.module.css";
 
 
@@ -12,7 +12,7 @@ import {CustomLocationElement} from "../../commonComponents/CustomForm/CustomLoc
 import {CustomSelectElement} from "../../commonComponents/CustomForm/CustomSelectElement/CustomSelectElement";
 import {CustomTextAreaElement} from "../../commonComponents/CustomForm/CustomTextAreaElement/CustomTextAreaElement";
 
-export function GroupDetail({details, sendData , unsubscribeFromGroup}) {
+export function GroupDetail({details, sendData , unsubscribeFromGroup ,deleteItem}) {
     const [generalEdit, setGeneralEdit] = useState(false);
     const [savedData, setSavedData] = useState(details);
     const [err, setErr] = useState(new Set());
@@ -20,8 +20,6 @@ export function GroupDetail({details, sendData , unsubscribeFromGroup}) {
     useEffect(()=> {
         setSavedData(details);
     } , [details])
-
-
     const isOwner = user?._id === details.creator.id ; 
     let isJoinedMember = true ; 
 
@@ -67,16 +65,17 @@ export function GroupDetail({details, sendData , unsubscribeFromGroup}) {
     async function unsubscribeToGroup(){
         await unsubscribeFromGroup(user._id) ; 
     }
+
     
     return (
 <div className={styles["details-div"]}>
 <formContext.Provider value={{savedData , generalEdit , saveData , submitForm ,saveLocationData , err , isOwner , isAuthenticated , isJoinedMember}}>
-<CustomForm generalEdit={generalEdit} setGeneralEdit={setEdit} reject={reject} unsubscribe={unsubscribeToGroup}>
-<CustomInputElement name={"group name"} type={"text"} text={savedData.name}/>
-<CustomSelectElement name={"preferent type"} text={savedData.type}/>
-<CustomNumberElement name={"members"} text={savedData.members.length}/>
-<CustomLocationElement name={"location-0"} text={savedData.location}/>
-<CustomTextAreaElement name={"description"} text={savedData.description}/>
+<CustomForm generalEdit={generalEdit} setGeneralEdit={setEdit} reject={reject} unsubscribe={unsubscribeToGroup} deleteItem={deleteItem}>
+<CustomInputElement name={"group name"} type={"text"} />
+<CustomSelectElement name={"preferent type"} />
+<CustomNumberElement name={"members"}  number={details?.members?.lenth || 0}/>
+<CustomLocationElement name={"location-0"} />
+<CustomTextAreaElement name={"group description"}/>
 </CustomForm>
 </formContext.Provider>
 </div>

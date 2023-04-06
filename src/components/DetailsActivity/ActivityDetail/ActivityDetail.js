@@ -14,7 +14,7 @@ import { CustomTextAreaElement } from "../../commonComponents/CustomForm/CustomT
 
 
 
-export function ActivityDetail({ details , sendData , jounToActivity,  removeFromActivity}) {
+export function ActivityDetail({ details , sendData , jounToActivity,  removeFromActivity, deleteItem }) {
     const [generalEdit, setGeneralEdit] = useState(false);
     const [savedData, setSavedData] = useState(details);
     const [err, setErr] = useState(new Set());
@@ -78,7 +78,7 @@ export function ActivityDetail({ details , sendData , jounToActivity,  removeFro
     return (
         <div className={styles["details-div"]}>
             <formContext.Provider value={({savedData , generalEdit , saveData , submitForm ,saveLocationData , err , isOwner , isAuthenticated , isJoinedMember})}>
-            <CustomForm  setGeneralEdit={setEdit} reject={reject}  join={joinActivity}  unsubscribe={unsubscribeToActivity} >
+            <CustomForm  setGeneralEdit={setEdit} reject={reject}  join={joinActivity}  unsubscribe={unsubscribeToActivity} deleteItem={deleteItem} >
                 <CustomInputElement name={"activity title"} type={"text"}  />
                 <CustomSelectElement name={"type"} />
                 <CustomDateElement name={"date"} />

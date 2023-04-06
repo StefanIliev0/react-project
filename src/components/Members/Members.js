@@ -15,6 +15,7 @@ export function Members({ members, postOwner, removeMember, candidates, approveC
     useEffect(() => {
         setNormalMember(members)
     }, [members])
+    console.log(candidates);
 
     return (<>
         <div className={styles["members-div"]}>
@@ -23,8 +24,8 @@ export function Members({ members, postOwner, removeMember, candidates, approveC
                     <h4 className={styles["members-h4"]} >Owner:</h4>
                     <ProfileDiv nickname={postOwner?.nickname} imgUrl={postOwner?.imgUrl} to={postOwner?.id} />
                 </div>
-            ) : (
-                candidates && (<div className={styles["members-owner-div"]} >
+            ) : null }
+            {((candidates.length > 0) && isOwner ) ? (<div className={styles["members-owner-div"]} >
                     <h4 className={styles["members-h4"]} >Candidates:</h4>
                     {candidates.map(c => (
                         <ProfileDiv
@@ -34,8 +35,7 @@ export function Members({ members, postOwner, removeMember, candidates, approveC
                             postOwner={isOwner}
                             approveCandidate={approveCandidate}
                             unapproveCandidate = {unapproveCandidate} />))}
-                </div>)
-            )}
+                </div>) : null}
             <h4 className={styles["members-h4"]} >Members:</h4>
             {normalMembers?.map((member) => (
             <ProfileDiv 

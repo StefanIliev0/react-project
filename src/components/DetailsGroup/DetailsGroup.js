@@ -1,5 +1,5 @@
 import {useContext, useEffect ,useState} from 'react' ;
-import { useParams } from 'react-router-dom';
+import { useParams ,useNavigate} from 'react-router-dom';
 import styles from "./detailsGroup.module.css";
 
 import { AuthContext } from '../../contexts/authContext';
@@ -8,22 +8,13 @@ import { AuthContext } from '../../contexts/authContext';
 import { Members } from '../Members/Members';
 import { GroupDetail } from "./GroupDetails/GroupDetails";
 import { GroupActivities } from "./GroupActivities/GroupActivities";
-// import { GroupComments } from "./GroupComments/GroupComments";
+import { GroupComments } from "./GroupComments/GroupComments";
 
-import { updateGroup ,removeUserFromGroup , getGroupDeatails, approveGroupCandidate, unapproveGroupCandidate} from '../../services/groupService';
+import { updateGroup ,removeUserFromGroup , getGroupDeatails, approveGroupCandidate, unapproveGroupCandidate, deleteGroup} from '../../services/groupService';
 
 
 export function DetailsGroup() {
-    const [group , setGroup] = useState({
-        "group name": "",
-        "preferent type": "",
-        location: [{ location: "", country: "" }],
-        "group description": "" , 
-        members : [] ,
-        candidates : [] , 
-        creator : {id : "" , imgUrl : "" , nickname : ""} ,
-        groupActivities : []
-        });
+    const [group , setGroup] = useState(null);
     const {groupId} = useParams() ;
     useEffect(()=> {
         getGroupDeatails(groupId).then((result)=>{
@@ -31,10 +22,11 @@ export function DetailsGroup() {
             setGroup(currentGroup);
         }).catch((err)=> {console.log(err)})
     }, [groupId]) ;
-    const {userId} = useContext(AuthContext)
+    const {userId} = useContext(AuthContext);
+    const navigate = useNavigate();
     async function sendData(data){
         try{
-        await updateGroup( data , activityId );
+        await updateGroup( data , groupId );
     }catch(err){
             console.log(err)
         }
@@ -62,14 +54,18 @@ export function DetailsGroup() {
         try{
         await unapproveGroupCandidate(groupId , memberId)
         const candidates = group.candidates.filter(c => c.id !== memberId);
-        setGroup((gr) => ({...gr, candidates}))
+        setGroup((gr) => ({...gr, candidates}));
     }catch(err){
-        console.log(err)
-    }
-    }
+        console.log(err);
+    }}
+    async function deleteItem (){
+        await deleteGroup(groupId);
+          navigate("/groups");
+      };
     return (
 <div className={styles["container-div"]}> 
-<GroupDetail  details ={group}  sendData ={sendData} unsubscribeFromGroup={removeUser}/>
+{group &&(<>
+<GroupDetail  details ={group}  sendData ={sendData} unsubscribeFromGroup={removeUser} deleteItem={deleteItem} />
 <Members
  members={group.members}
  postOwner={group.creator}
@@ -78,7 +74,9 @@ export function DetailsGroup() {
   approveCandidate={approveCandidate}
  unapproveCandidate={unapproveCandidate}/>
 <GroupActivities groupActivities={group.groupActivities}/>
-{/* <GroupComments /> */}
+<GroupComments objectId={groupId} />
+</>
+)}
 </div>
     )
 }

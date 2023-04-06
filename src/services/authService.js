@@ -1,6 +1,6 @@
 
 
-import {  register ,login ,logout , create , giveMe , giveMeMy } from "../services/requester"
+import {  register, login, logout, giveMeGroups } from "../services/requester"
 import { checkLoginData, checkRegisterData } from "../utils/checkInputs";
 
 export  async function creteNewUser(data){
@@ -18,7 +18,10 @@ export async function loginUser({username , password}){
     if (error.length > 0){
         throw error ;
     }
-    const userData = await login(username , password) ;
+    const userData = await login(username, password) ;
+    const groupsData = await giveMeGroups( "groups", userData.id);
+
+    const remakeGroups = groupsData.map(g => ({id : g.id, name : g.attributes.groupName})) ; 
 
     const user = {
         _id : userData.id ,
@@ -27,6 +30,7 @@ export async function loginUser({username , password}){
          age : userData.attributes.age ,
          location : userData.attributes.location ,
          nickname : userData.attributes.nickname ,
+         groups : remakeGroups
          }
 
     return  user

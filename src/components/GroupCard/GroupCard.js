@@ -5,7 +5,7 @@ import { CustomLink } from '../commonComponents/CustomLink/CustomLink';
 import { CustomButton } from '../commonComponents/CustomButton/CustomButton';
 
 
-export function GroupCard({name , numOfMembers , id , preferentType, location , candidate , isMember , isCandidate }) {
+export function GroupCard({name, id, preferentType, location, candidate, isMember, isCandidate }) {
     return (
 <article className={styles["article"]}>
     <div className={styles["icon-div"]}>
@@ -13,12 +13,11 @@ export function GroupCard({name , numOfMembers , id , preferentType, location , 
     </div>
     <div>
     <h4>{name}</h4>
-    <h5>Number of members : {numOfMembers}</h5>
     <p>Preferred activity :{preferentType}</p>
     <p>location : {`${location[0].location}, ${location[0].country}`}</p>
     </div>
     <div >
-    {!isCandidate && <CustomButton text={"Candidate"} onclick={() => candidate(id)} />}
+    {(!isCandidate && !isMember) && <CustomButton text={"Candidate"} onclick={() => candidate(id)} />}
     {isMember && <CustomLink to={`/groups/${id}`} text = "Details"/>}
     </div>
 </article>

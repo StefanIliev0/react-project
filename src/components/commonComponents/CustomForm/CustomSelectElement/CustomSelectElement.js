@@ -9,11 +9,11 @@ import { BtnsSubmitAndReject } from "../../BtnsSubmitAndReject/BtnsSubmitAndReje
 import { NormalSelect } from "./NormalSelect/NormalSelect";
 import { checkInput } from "../../../../utils/checkInputs";
 
-export function CustomSelectElement({ name}) {
+export function CustomSelectElement({name}) {
     const {saveData , generalEdit , savedData , isOwner} = useContext(formContext)
     const [hover , setHover] = useState(false);
     const [edit , setEdit] = useState(false);
-    const [currentText , setCurrentText] = useState({ text : savedData[name] , error : "" });
+    const [currentText , setCurrentText] = useState({ text : savedData[name] || "relax" , error : "" });
     useEffect(()=>{
         if(!generalEdit){
         setCurrentText({ text : savedData[name] , error : "" })}
@@ -25,9 +25,7 @@ export function CustomSelectElement({ name}) {
     function onEditSubmit(){
         if(generalEdit){
         onSubmit();}
-    }
-    
-    
+    };
     const onSubmit = (e) => {
         if(e){
             e.preventDefault(e) ;}
@@ -60,7 +58,7 @@ export function CustomSelectElement({ name}) {
     </form>
   )  :
   ( <div className={styles["input-text-div"]} onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}>
-  <h3 className={styles["h3"]} >{`${name[0].toUpperCase()}${name.substring(1)} : ${currentText.text[0].toUpperCase()}${currentText.text.substring(1)}`}</h3>
+  <h3 className={styles["h3"]} >{`${name[0]?.toUpperCase()}${name?.substring(1)} : ${currentText?.text[0]?.toUpperCase() || "P"}${currentText?.text?.substring(1) || "arty"} `}</h3>
   {(hover && isOwner) && (<BtnEdit onclick={(e) => setEdit(true)} />)}
     </div>)
 }

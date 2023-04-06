@@ -1,6 +1,5 @@
 .details-div {
-    display: block;
-    float: left;
+    display: inline-block;
     box-sizing: border-box;
     margin: 70px;
     width: 1000px;

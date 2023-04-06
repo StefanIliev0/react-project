@@ -1,4 +1,4 @@
-import { useContext, useEffect ,useState , useMemo} from 'react' ;
+import { useContext, useEffect ,useState } from 'react' ;
 import styles from "./groupList.module.css";
 
 
@@ -24,7 +24,7 @@ async function candidate(groupId){
        setGroups((oldGroups) => {
         const groupsWithoutCurrGroup = oldGroups.filter(g => g.id !== groupId) ;
         const currentGroup = oldGroups.find(g => g.id === groupId) ; 
-        currentGroup.canidates.push({id : user._id}) ; 
+        currentGroup.canidatesId.push(user._id) ; 
         return [...groupsWithoutCurrGroup , currentGroup] ; 
        })
     }catch(err){
@@ -47,12 +47,11 @@ async function candidate(groupId){
             name={g.name}
             id={g.id}
             location={g.location} 
-            numOfMembers={g.members.length} 
             candidate={candidate}
             preferentType={g.preferentType}
             key={g.id}
-            isMember={g.members.find(m => m.id === user._id)} 
-            isCandidate={g.canidates.find(c => c.id === user._id)}
+            isMember={user?.groups?.find(uGr => uGr.id === g.id)} 
+            isCandidate={g.canidatesId?.find(c => c === user._id) || false }
             />
         )
     })

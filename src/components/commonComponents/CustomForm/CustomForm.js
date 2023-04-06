@@ -14,16 +14,13 @@ import { formContext } from "../../../contexts/formContext";
 
 
 
-export function CustomForm({ children, reject , join , unsubscribe}) {
+export function CustomForm({ children, reject , join , unsubscribe , deleteItem}) {
     const { generalEdit, submitForm, setGeneralEdit, err , isOwner , isJoinedMember , isAuthenticated } = useContext(formContext);
     function askForDelete(e) {
         e.preventDefault();
         if (window.confirm('Are you sure you want to delete this item??')) {
-            deleteItem("id");
+            deleteItem();
         }
-    }
-    function deleteItem() {
-        ///delete item 
     }
     function saveAllData(e) {
         e.preventDefault();
@@ -50,13 +47,15 @@ export function CustomForm({ children, reject , join , unsubscribe}) {
                         <CustomButton text={<AiOutlineDelete className={styles["icon"]} />} onclick={askForDelete} />
                     </div>
                     <BtnEdit onclick={() => setGeneralEdit(true)} />
-                </>) : ( 
-                   (!isJoinedMember && isAuthenticated)  &&  (<div className={styles["edit-div"]}>
+                </>) : ( <>
+                  { (!isJoinedMember && isAuthenticated)  &&  (<div className={styles["edit-div"]}>
                         <CustomButton text={<AiOutlineCheck className={styles["icon"]} />} onclick={join} />
-                    </div>)
-                    (isJoinedMember && isAuthenticated)  &&  (<div className={styles["edit-div"]}>
+                    </div>)}
+                  { (isJoinedMember&& isAuthenticated)  &&  (<div className={styles["edit-div"]}>
                     <CustomButton text={<AiOutlineClose className={styles["icon"]} />} onclick={unsubscribe} />
-                </div>)
+                    
+                </div>)}
+                </>
                 )}
                 {children}
             </>

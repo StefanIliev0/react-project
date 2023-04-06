@@ -1,7 +1,7 @@
-import { update,   create,  giveMe, giveMeAll , giveMeMembers, giveMeOwner, removeUser, replace , addMember } from "./requester";
+import { update,   create,  giveMe, giveMeAll , giveMeMembers, giveMeOwner, removeUser, replace , addMember, remove } from "./requester";
 
 export async function getAllActivities (){
-   const activites =   await giveMeAll("activity" , "all") ;
+   const activites =   await giveMeAll("activity" ,"accessibility", "all"  ) ;
     const remakeActyvity = activites.map( a => ({ 
         id : a.id  ,
         date : a.attributes.date ,
@@ -70,4 +70,7 @@ export async function replaceLocations ( data , activityId){
 }
 export async function removeUserFromActivity (activityId, userId){
     await removeUser("activity" , activityId , userId) ; 
-}
+};
+export async function deleteActivity (activityId){
+    await remove("activity", activityId) ; 
+};
