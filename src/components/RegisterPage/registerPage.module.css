@@ -2,8 +2,8 @@
     display: block;
     margin: 30px auto;
     width: 800px;
-    border: 1px solid black;
-    border-radius: 50px;
+    border-radius: 30px;
+    background-color: rgba(118, 206, 100, 0.533);
 }
 .inline-div{
     margin: 25px 0;
@@ -19,6 +19,8 @@
 .input {
     display: inline-block;
     font-size: 20px;
+    border-radius: 10px;
+    background-color: rgba(153, 153, 210, 0.3);
 }
 .form {
     text-align: center;
@@ -29,9 +31,11 @@
     height: 200px;
     width: 500px;
     display: inline-block;
-    font-size: 15px;
     overflow-y: auto;
+    color: black;
+    font-size: larger;
     resize: none;
+    border-radius: 8px;
 }
 .error-div{
     display: inline-block;

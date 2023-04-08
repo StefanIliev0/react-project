@@ -3,19 +3,23 @@
     font: 25px bold;
     margin: 25px 0;
 }
+
 .input-long {
     height: 30px;
     display: inline-block;
     font-size: 16px;
     margin-right: 20px;
     border-radius: 10px;
+    background-color: rgba(153, 153, 210, 0.3);
 }
-.err-div{
+
+.err-div {
     display: inline-block;
     position: absolute;
     color: red;
 }
-.err-p{
+
+.err-p {
     margin: 0;
     padding: 0;
 }

@@ -6,16 +6,6 @@
     margin: 70px;
     width: 1000px;
     height: 1000px;
-    border: 1px solid black;
     border-radius: 50px;
-}
-.edit-div {
-    display: block;
-    float: right;
-    margin: 20px;
-}
-.icon {
-    display: block;
-    width: 30px;
-    height: 25px;
+    background-color: rgba(153, 153, 210, 0.434);
 }

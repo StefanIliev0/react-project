@@ -69,11 +69,11 @@ export function GroupDetail({details, sendData , unsubscribeFromGroup ,deleteIte
     
     return (
 <div className={styles["details-div"]}>
-<formContext.Provider value={{savedData , generalEdit , saveData , submitForm ,saveLocationData , err , isOwner , isAuthenticated , isJoinedMember}}>
-<CustomForm generalEdit={generalEdit} setGeneralEdit={setEdit} reject={reject} unsubscribe={unsubscribeToGroup} deleteItem={deleteItem}>
+<formContext.Provider value={{savedData , generalEdit ,setEdit, saveData , submitForm ,saveLocationData , err , isOwner , isAuthenticated , isJoinedMember}}>
+<CustomForm  reject={reject} unsubscribe={unsubscribeToGroup} deleteItem={deleteItem}>
 <CustomInputElement name={"group name"} type={"text"} />
 <CustomSelectElement name={"preferent type"} />
-<CustomNumberElement name={"members"}  number={details?.members?.lenth || 0}/>
+<CustomNumberElement name={"members"}  number={details?.members?.length || 0}/>
 <CustomLocationElement name={"location-0"} />
 <CustomTextAreaElement name={"group description"}/>
 </CustomForm>

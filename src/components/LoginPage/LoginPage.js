@@ -9,12 +9,12 @@ export function LoginPage() {
     const [errors, setErrors] = useState([]);
     const { onLogin } = useContext(AuthContext);
 
-    function formSubmit(e) {
+   async function formSubmit(e) {
         e.preventDefault();
         try {
-            onLogin(currentData);
+          await  onLogin(currentData);
         } catch (error) {
-            setErrors((err) => ([...err, ...error]));
+            setErrors([error]);
         }
     }
 

@@ -23,8 +23,8 @@ async function candidate(groupId){
        await candidateToGroup(groupId);
        setGroups((oldGroups) => {
         const groupsWithoutCurrGroup = oldGroups.filter(g => g.id !== groupId) ;
-        const currentGroup = oldGroups.find(g => g.id === groupId) ; 
-        currentGroup.canidatesId.push(user._id) ; 
+        let currentGroup = oldGroups.find(g => g.id === groupId) ; 
+        currentGroup.candidatesId.push(user._id) ; 
         return [...groupsWithoutCurrGroup , currentGroup] ; 
        })
     }catch(err){
@@ -42,6 +42,9 @@ async function candidate(groupId){
 </div>
 <div className={styles["group-div"]}>
     {groups.map((g) => {
+        const isCandidate = g.candidatesId.includes(user._id); 
+        const isMember = user?.groups?.find(uGr => uGr.id === g.id)
+
         return (
             <GroupCard 
             name={g.name}
@@ -50,8 +53,8 @@ async function candidate(groupId){
             candidate={candidate}
             preferentType={g.preferentType}
             key={g.id}
-            isMember={user?.groups?.find(uGr => uGr.id === g.id)} 
-            isCandidate={g.canidatesId?.find(c => c === user._id) || false }
+            isMember={isMember}
+            isCandidate={isCandidate}
             />
         )
     })

@@ -37,7 +37,7 @@ export function Navigation() {
                     </li> </>)}
                 </ul>
             </nav>
-            {isAuthenticated ? <ProfileDiv to={`users/${user._id}`} nickname={user.nickname} imgUrl={user.imgUrl} /> : (
+            {isAuthenticated ? <ProfileDiv to={`${user._id}`} nickname={user.nickname} imgUrl={user.imgUrl} /> : (
                   <div className={styles["profile-div"]} />
             )}
             

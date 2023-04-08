@@ -56,16 +56,16 @@ export function CustomLocationElement({name}) {
     };
     return (
     <div className={styles["input-container-long"]} >
-{generalEdit ? (<NormalLocationInput changeHandler={handleChange} text={currentText.text} name= {name} error = {currentText.error}/>) : (
+{generalEdit ? (<NormalLocationInput index={index} changeHandler={handleChange} text={currentText.text} name= {name} error = {currentText.error}/>) : (
 <>
 { (edit && isOwner) ? (
     <form action="submit" onSubmit={onSubmit} className={styles["form-long"]}>
-    <NormalLocationInput changeHandler={handleChange} text={currentText.text} name={name} error = {currentText.error}/>  
+    <NormalLocationInput index={index} changeHandler={handleChange} text={currentText.text} name={name} error = {currentText.error}/>  
           <BtnsSubmitAndReject reject={undo} />
     </form>
   )  :
   ( <div className={styles["input-text-div"]} onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}>
-  <h3 className={styles["h3"]} >Start location : {`${currentText.text.location} , ${currentText.text.country}`}</h3>
+  <h3 className={styles["h3"]} >Start location : {`${currentText?.text?.location || ""} , ${currentText?.text?.country || ""}`}</h3>
   {(hover && isOwner) && (<BtnEdit onclick={(e) => setEdit(true)} />)}
     </div>) }
 </>)}

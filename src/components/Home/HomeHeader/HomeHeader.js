@@ -11,7 +11,7 @@ export function HomeHeader() {
             <h1 className={styles["title"]}>With Your Friends</h1>
             </div>
             <div>
-                <CustomLink to={"/"} text="Someting"/>
+                <CustomLink to={"/activities"} text="Let`s start"/>
             </div>
         </div>
     )

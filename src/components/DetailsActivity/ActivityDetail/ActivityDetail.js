@@ -52,8 +52,9 @@ export function ActivityDetail({ details , sendData , jounToActivity,  removeFro
     };
     async function submitForm() {
         try{
+            if(err.size = 0){
           await sendData(savedData) ; 
-          setGeneralEdit(false)
+          setGeneralEdit(false)}
     }catch(err){
         console.log(err.message) ; 
     }
@@ -77,8 +78,8 @@ export function ActivityDetail({ details , sendData , jounToActivity,  removeFro
     
     return (
         <div className={styles["details-div"]}>
-            <formContext.Provider value={({savedData , generalEdit , saveData , submitForm ,saveLocationData , err , isOwner , isAuthenticated , isJoinedMember})}>
-            <CustomForm  setGeneralEdit={setEdit} reject={reject}  join={joinActivity}  unsubscribe={unsubscribeToActivity} deleteItem={deleteItem} >
+            <formContext.Provider value={({savedData, setEdit , generalEdit , saveData , submitForm ,saveLocationData , err , isOwner , isAuthenticated , isJoinedMember})}>
+            <CustomForm   reject={reject}  join={joinActivity}  unsubscribe={unsubscribeToActivity} deleteItem={deleteItem} >
                 <CustomInputElement name={"activity title"} type={"text"}  />
                 <CustomSelectElement name={"type"} />
                 <CustomDateElement name={"date"} />

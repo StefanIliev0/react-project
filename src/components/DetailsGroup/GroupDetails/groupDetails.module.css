@@ -4,6 +4,6 @@
     margin: 70px;
     width: 1000px;
     height: 1000px;
-    border: 1px solid black;
     border-radius: 50px;
+    background-color: rgba(153, 153, 210, 0.434);
 }

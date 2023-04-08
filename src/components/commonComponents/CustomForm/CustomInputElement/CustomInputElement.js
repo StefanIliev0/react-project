@@ -31,7 +31,7 @@ export function CustomInputElement({type, name }) {
     function onSubmit(e) {
         if(e){
         e.preventDefault(e) }
-        if(generalEdit){
+        if(generalEdit ){
         saveData(name , currentText.text , currentText.error );
         }else{
         if(!currentText.error){

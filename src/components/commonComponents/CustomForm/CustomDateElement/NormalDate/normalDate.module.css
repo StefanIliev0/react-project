@@ -9,6 +9,7 @@
     font-size: 16px;
     margin-right: 20px;
     border-radius: 10px;
+    background-color: rgba(153, 153, 210, 0.3);
 }
 .check-div {
     display: block;

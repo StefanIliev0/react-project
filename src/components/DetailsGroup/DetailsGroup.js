@@ -1,8 +1,6 @@
-import {useContext, useEffect ,useState} from 'react' ;
+import { useEffect ,useState} from 'react' ;
 import { useParams ,useNavigate} from 'react-router-dom';
 import styles from "./detailsGroup.module.css";
-
-import { AuthContext } from '../../contexts/authContext';
 
 
 import { Members } from '../Members/Members';
@@ -14,15 +12,26 @@ import { updateGroup ,removeUserFromGroup , getGroupDeatails, approveGroupCandid
 
 
 export function DetailsGroup() {
-    const [group , setGroup] = useState(null);
     const {groupId} = useParams() ;
+    const initial = {
+        id: groupId,
+        location: [{location : "" , county : ""}],
+        "group name": "",
+        "group description": "",
+        "preferent type": "other",
+        members: [],
+        creator: { id : "" , imgUrl : "" , nickname : ""},
+        candidates: [],
+        groupActivities: [],
+        isLoading : true
+    }
+    const [group , setGroup] = useState(initial);
     useEffect(()=> {
         getGroupDeatails(groupId).then((result)=>{
             const currentGroup = result ;
             setGroup(currentGroup);
         }).catch((err)=> {console.log(err)})
     }, [groupId]) ;
-    const {userId} = useContext(AuthContext);
     const navigate = useNavigate();
     async function sendData(data){
         try{
@@ -34,7 +43,9 @@ export function DetailsGroup() {
     async function removeUser(memberId){
      try{
      await removeUserFromGroup (groupId , memberId ) ; 
-     setGroup((gr) => ({...gr , groups : gr.members.filter(x => x.id !== userId)}));
+     setGroup((gr) => { 
+        const members = gr.members.filter(x => x.id !== memberId)
+        return{...gr , members}});
     }catch(err){
         console.log(err)
     }
@@ -44,8 +55,10 @@ export function DetailsGroup() {
       await  approveGroupCandidate(groupId , memberId)
       const candidate = group.candidates.find(c => c.id === memberId);
       const candidates = group.candidates.filter(c => c.id !== memberId);
-      const members = group.members.push(candidate); 
-      setGroup((gr) => ({...gr, candidates, members}))
+        setGroup((gr) => {
+            let members = gr.members  
+            members.push(candidate);
+        return  {...gr, candidates, members}})
     }catch(err){
         console.log(err)
     }
@@ -64,7 +77,6 @@ export function DetailsGroup() {
       };
     return (
 <div className={styles["container-div"]}> 
-{group &&(<>
 <GroupDetail  details ={group}  sendData ={sendData} unsubscribeFromGroup={removeUser} deleteItem={deleteItem} />
 <Members
  members={group.members}
@@ -74,9 +86,7 @@ export function DetailsGroup() {
   approveCandidate={approveCandidate}
  unapproveCandidate={unapproveCandidate}/>
 <GroupActivities groupActivities={group.groupActivities}/>
-<GroupComments objectId={groupId} />
-</>
-)}
+<GroupComments objectId={groupId} owner={group.creator}/>
 </div>
     )
 }

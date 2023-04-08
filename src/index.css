@@ -1,5 +1,6 @@
 body {
-  background-color: rgba(118, 206, 100, 0.533);
+  background: url("../public/images/istockphoto-1206564525-612x612.jpg") no-repeat center center fixed ;
+  background-size: cover;
   text-align: center;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

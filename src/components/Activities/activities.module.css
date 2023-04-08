@@ -1,5 +1,4 @@
 .h3 {
-    margin-left: 190px;
     display: inline-block;
     font-size: large;
     text-align: center;
@@ -9,8 +8,9 @@
     text-align: center;
 }
 .create-activity-div {
-    display: block;
-    float: right;
+    position: absolute;
+    display: inline-block;
+    right: 0px;
     padding-top: 45px;
     padding-right: 16px;
 }

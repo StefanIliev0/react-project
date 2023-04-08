@@ -10,13 +10,12 @@ import { getAllActivities } from "../../services/activityService";
 
 
 export function Activities() {
-    const{ user ,isAuthenticated }  = useContext(AuthContext); 
-    const userActivites = user?.activities || []  ; 
-    const [activities , setActivities] = useState(userActivites);
+    const{ isAuthenticated }  = useContext(AuthContext); 
+    const [activities , setActivities] = useState([]);
 
     useEffect(()=>{
          getAllActivities().then((value) =>{
-            setActivities((activity) => ([...activity , ...value])); 
+            setActivities(value); 
          }).catch((err) => console.log(err)); 
     },[])
 

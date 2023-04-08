@@ -17,7 +17,6 @@ export const AuthProvider = ({
             const result = await loginUser(data);
             setAuth(result);
             navigate('/activities');
-    
     }
     const onRegister = async (data) => {
             const newUser = await creteNewUser(data) ; 

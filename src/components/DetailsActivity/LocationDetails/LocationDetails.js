@@ -14,19 +14,19 @@ export function LocationDetails({ locations , isMember , numOfMembers , activity
     const {isAuthenticated , userId} = useContext(AuthContext); 
 
     async function aproveLocation (locationId , data ) {
-        const currLocation = [...locations] ; 
+        let currLocation = [...locations] ; 
         currLocation.splice(locationId , 1  , data) ;
         await replaceLocations(currLocation , activityId) ;
         updateLocations(currLocation)
     }
     async function removeLocation (locationId) {
-        const currLocation = [...locations] ;
+        let currLocation = [...locations] ;
         currLocation.splice(locationId , 1) ;
         await replaceLocations(currLocation , activityId) ;
         updateLocations(currLocation)
     }
     async function incrementVotes (locationId) {
-        const newLocations = locations.map((l, i) => {
+        let newLocations = locations.map((l, i) => {
             if(Number(locationId) === i ){
         return {...l , votes : {positive :(Number(l.votes.positive) + 1 ), negative :l.votes.negative} , voted :[...l.voted , userId]}
             }else{
@@ -37,7 +37,7 @@ export function LocationDetails({ locations , isMember , numOfMembers , activity
         updateLocations(newLocations); 
     }
     async function decrementVotes (locationId) {
-        const newLocations = locations.map((l, i) => {
+        let newLocations = locations.map((l, i) => {
             if(Number(locationId) === i ){
         return {...l , votes : {negative :Number(l.votes.negative) + 1 , positive :l.votes.positive} , voted :[...l.voted , userId]}
             }else{
@@ -49,8 +49,8 @@ export function LocationDetails({ locations , isMember , numOfMembers , activity
     }
 
     async function addLocation (index ,data ) {
-        const newLoc = {...data , aproved : false , votes :{positive : 1 , negative : 0} , voted :[userId]}
-        const currLocation = [...locations] ; 
+        let newLoc = {...data , aproved : false , votes :{positive : 1 , negative : 0} , voted :[userId]}
+        let currLocation = [...locations] ; 
         currLocation.splice(index + 1 , 0  , newLoc) ;
         await replaceLocations(currLocation , activityId) ;
         updateLocations(currLocation)
@@ -58,6 +58,7 @@ export function LocationDetails({ locations , isMember , numOfMembers , activity
 
     return (
         <div className={styles["locations-div"]}>
+            <h3>Locations :</h3>
 
             {locations.map((l , i) => {
                 if (l.aproved) {

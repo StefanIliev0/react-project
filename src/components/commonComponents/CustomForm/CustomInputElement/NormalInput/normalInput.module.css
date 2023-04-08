@@ -6,6 +6,8 @@
 .input {
     display: inline-block;
     font-size: 20px;
+    border-radius: 10px;
+    background-color: rgba(153, 153, 210, 0.3);
 }
 .err-div{
     display: inline-block;

@@ -7,6 +7,7 @@ import { CustomButton } from "../CustomButton/CustomButton";
 import { BtnsSubmitAndReject } from "../BtnsSubmitAndReject/BtnsSubmitAndReject";
 import { BtnEdit } from "../BtnEdit/BtnEdit";
 import { formContext } from "../../../contexts/formContext";
+import { AuthContext } from "../../../contexts/authContext";
 
 
 
@@ -15,7 +16,8 @@ import { formContext } from "../../../contexts/formContext";
 
 
 export function CustomForm({ children, reject , join , unsubscribe , deleteItem}) {
-    const { generalEdit, submitForm, setGeneralEdit, err , isOwner , isJoinedMember , isAuthenticated } = useContext(formContext);
+    const { savedData, generalEdit, submitForm, setEdit, err , isOwner , isJoinedMember , isAuthenticated} = useContext(formContext);
+    const {userId} = useContext(AuthContext); 
     function askForDelete(e) {
         e.preventDefault();
         if (window.confirm('Are you sure you want to delete this item??')) {
@@ -26,12 +28,12 @@ export function CustomForm({ children, reject , join , unsubscribe , deleteItem}
         e.preventDefault();
         if (err.size === 0) {
             submitForm();
+        if (setEdit) {
+            setEdit(false);
         }
-        if (setGeneralEdit) {
-            setGeneralEdit(false);
         }
     }
-
+    
     return (
         <>
             {generalEdit ? (
@@ -42,21 +44,21 @@ export function CustomForm({ children, reject , join , unsubscribe , deleteItem}
                     {children}
                 </form>
             ) : (<>
-                {isOwner ? (<>
+                {isOwner &&(<>
                     <div className={styles["edit-div"]}>
                         <CustomButton text={<AiOutlineDelete className={styles["icon"]} />} onclick={askForDelete} />
                     </div>
-                    <BtnEdit onclick={() => setGeneralEdit(true)} />
-                </>) : ( <>
-                  { (!isJoinedMember && isAuthenticated)  &&  (<div className={styles["edit-div"]}>
+                    <BtnEdit onclick={() => setEdit(true)} />
+                </>) }
+                  {(!isJoinedMember && isAuthenticated && !isOwner && !savedData.isLoading && join)  &&  (<div className={styles["edit-div"]}>
                         <CustomButton text={<AiOutlineCheck className={styles["icon"]} />} onclick={join} />
                     </div>)}
-                  { (isJoinedMember&& isAuthenticated)  &&  (<div className={styles["edit-div"]}>
-                    <CustomButton text={<AiOutlineClose className={styles["icon"]} />} onclick={unsubscribe} />
+                  { (isJoinedMember && isAuthenticated && !isOwner && !savedData.isLoading && unsubscribe)  &&  (<div className={styles["edit-div"]}>
+                    <CustomButton text={<AiOutlineClose className={styles["icon"]} />} onclick={()=> {unsubscribe(userId)}} />
                     
                 </div>)}
-                </>
-                )}
+              
+                
                 {children}
             </>
             )}

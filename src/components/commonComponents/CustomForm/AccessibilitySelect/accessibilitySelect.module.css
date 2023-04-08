@@ -6,6 +6,8 @@
 .select {
     display: inline-block;
     font-size: 20px;
+    border-radius: 10px;
+    background-color: rgba(153, 153, 210, 0.3);
 }
 .input-container {
     text-align: left;

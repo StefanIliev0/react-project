@@ -1,7 +1,7 @@
 import styles from "./normalLocationInput.module.css"
 import { useState } from "react"
 
-export function NormalLocationInput ( {changeHandler, text, name , error }){
+export function NormalLocationInput ( {changeHandler, text, name , error ,index}){
     const [showError , setShowError] = useState(false)
     return (
         <>
@@ -10,21 +10,21 @@ export function NormalLocationInput ( {changeHandler, text, name , error }){
                     {error}
                 </p>
             </div>)}
-        <label htmlFor={`${name}_location`} className={styles["label"]}>{`Location :`}</label>
+        <label htmlFor={`${name}_${index}_location`} className={styles["label"]}>{`Location :`}</label>
                 <input onBlur={() => setShowError(true)} onFocus={() => setShowError(false)}
-                id={`${name}_location`}
+                id={`${name}_${index}_location`}
                      className={styles["input-long"]} 
                      name= "location"
                      type="text" 
-                     value={text.location} 
+                     value={text?.location} 
                      onChange={ changeHandler} />
-        <label htmlFor={`${name}_conutry`} className={styles["label"]}>{`Country :`}</label>
+        <label htmlFor={`${name}_${index}_conutry`} className={styles["label"]}>{`Country :`}</label>
                 <input onBlur={() => setShowError(true)} onFocus={() => setShowError(false)}
-                id={`${name}_conutry`}
+                id={`${name}_${index}_conutry`}
                      className={styles["input-long"]} 
                      name= "country" 
                      type="text" 
-                     value={text.country} 
+                     value={text?.country} 
                      onChange={changeHandler} />
         </>
     )

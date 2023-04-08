@@ -3,8 +3,7 @@ import { useState } from "react"
 
 
 export function NormalDate({ changeHandler, text, oneDay, changeDays, error }) {
-    const [showError , setShowError] = useState(false)
-
+    const [showError , setShowError] = useState(false); 
     return (
         <>
             {(error && showError) && (<div className={styles["err-div"]}>

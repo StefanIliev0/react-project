@@ -25,7 +25,9 @@ export function CustomDateElement({name}) {
         setCurrentText({ text : savedData[name] , error : "" })}
     }, [savedData])
     useEffect(() => {
-        onEditSubmit();}
+        onEditSubmit();
+
+    }
     , [currentText]);
 
     function onEditSubmit(){
@@ -53,14 +55,14 @@ export function CustomDateElement({name}) {
     };
     function undo(e){
         e.preventDefault();
-        setCurrentText(savedData[name]);
+        setCurrentText({text : savedData[name] , error : ""});
         setEdit(false) ; 
     };
     return (
     <div className={styles["input-container-long"]} >
     {generalEdit ?(
     <NormalDate 
-    text={currentText} 
+    text={currentText.text} 
     changeHandler={handleChange} 
     oneDay={oneDayAct} 
     changeDays={ () => setOneDayAct(!oneDayAct)}
@@ -71,7 +73,7 @@ export function CustomDateElement({name}) {
     <form action="submit" onSubmit={onSubmit} className={styles["form-long"]}>
 
     <NormalDate 
-    text={currentText} 
+    text={currentText.text} 
     changeHandler={handleChange} 
     oneDay={oneDayAct} 
     changeDays={() => setOneDayAct(!oneDayAct)}
@@ -81,7 +83,7 @@ export function CustomDateElement({name}) {
     </form>
   )  :
   ( <div className={styles["input-div-long"]} onMouseEnter={()=>setHover(true)} onMouseLeave={()=>setHover(false)}>
-  <h3 className={styles["h3"]} >{`Planned date${currentText.text.to ?"s" : ""}. From: ${new Date(currentText.text.from).toDateString()}` + (currentText.text.to ? ` To: ${new Date(currentText.text.to).toDateString()}` : ``)}</h3>
+  <h3 className={styles["h3"]} >{`Planned date${currentText?.text?.to ?"s" : ""}. From: ${new Date(currentText?.text?.from).toDateString()}` + (currentText?.text?.to ? ` To: ${new Date(currentText.text.to).toDateString()}` : ``)}</h3>
  {(hover && isOwner) && (<BtnEdit onclick={(e) => setEdit(true)} />)}
     </div>)
 }

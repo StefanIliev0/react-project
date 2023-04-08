@@ -1,19 +1,21 @@
 
   .header {
+    margin-top: 15px;
     display: block;
     text-align: center;
     min-height: 600px;
      height: 100%; 
-     background-color: red;
-    /* background: url(../../../public/images/homeHeader.jpg) no-repeat center center fixed ;  */
+    background: url(../../../../public/images/Trending-Group-Names-for-Friends.jpg) no-repeat center center fixed ; 
     background-size: cover;
   }
 
   .title {
+    color: green;
     font-size: 100px;
     margin-bottom: 100px ;
   }
   .subtitle { 
+    color: green;
     padding-top: 50px;
     margin: 0px 100px 20px ;
     font-size: 50px;

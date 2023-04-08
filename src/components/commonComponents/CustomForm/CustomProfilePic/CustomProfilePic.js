@@ -13,7 +13,7 @@ import { checkInput } from "../../../../utils/checkInputs";
 
 
 export function CustomProfilePic({name}) {
-    const {saveData , generalEdit , savedData} = useContext(formContext)
+    const {saveData , generalEdit , savedData , isOwner} = useContext(formContext)
     const [hover , setHover] = useState(false);
     const [edit , setEdit] = useState(false);
     const [currentText , setCurrentText] = useState({ text : savedData[name] , error : "" });
@@ -68,7 +68,7 @@ export function CustomProfilePic({name}) {
     </form>
   )  :
   ( <>
-    {hover && (<BtnEdit onclick={(e) => setEdit(true)}/> )}
+    {(hover && isOwner) && (<BtnEdit onclick={(e) => setEdit(true)}/> )}
     </>
   )
 } </>

@@ -12,6 +12,9 @@
     overflow-y: auto;
     border-radius: 15px;
     resize: none;
+    color: black;
+    border-radius: 8px;
+    background-color: rgba(153, 153, 210, 0.3);
 }
 .err-div{
     display: inline-block;

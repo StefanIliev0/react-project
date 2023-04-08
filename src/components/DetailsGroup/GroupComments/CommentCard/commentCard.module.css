@@ -2,10 +2,9 @@
     box-sizing: content-box;
     text-align: left;
     display: inline-block;
-    border: 2px solid black;
     border-radius: 20px;
     width: 83%;
-    background-color: #d8cacad1;
+    background-color: rgba(153, 153, 210, 0.434);
     margin: 5px;
 }
 .author{

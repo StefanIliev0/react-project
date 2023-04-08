@@ -28,6 +28,7 @@ export function CreateAcivity() {
         "activity description": "" , 
     });
     const [err, setErr] = useState(new Set());
+    const [errors , setErrors ] = useState([]); 
     const groups = user.groups;
     const navigate = useNavigate();
 
@@ -59,16 +60,27 @@ export function CreateAcivity() {
     };
     async function submitForm() {
         try{
+        if(err.size > 0){
+        let errors = []
+           err.values.forEach(x => errors.push({message : x}))
+        throw errors; 
+        }
         const newActivity = await createNewActivity(savedData, user._id);
         addNewActivity(newActivity);
         navigate("/activities");
     }catch(err){
-        console.log(err.message) ; 
+        console.log(err)
+        setErrors([err]); 
     }
     }
 
     return (
         <div className={styles["container-div"]}>
+               {errors.length > 0 && (
+                <div className={styles["error-div"]}>
+                    {errors.map((err) => <p key={err.message}>{err.message}</p>)}
+                </div>
+            )}
             <formContext.Provider value={({ generalEdit: true, saveData, saveLocationData, submitForm, savedData, groups, err })}>
                 <CustomForm  >
                     <CustomInputElement name={"activity title"} type="text" />

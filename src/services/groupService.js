@@ -19,7 +19,7 @@ export async function getAllGroups() {
         id: g.id,
         preferentType: g.attributes.preferentType,
         location: g.attributes.location,
-        candidatesId: g.attributes.candidatesId
+        candidatesId: g.attributes.candidatesId || []
     }))
     return remakeGroups
 };
@@ -30,7 +30,6 @@ export async function candidateToGroup(groupId) {
 export async function removeUserFromGroup(groupIdId, userId) {
     await removeUser("group", groupIdId, userId);
 };
-
 export async function updateGroup(data, groupId) {
     let currentGroup = {
         groupName: data["group name"],
@@ -45,12 +44,12 @@ export async function getGroupDeatails(groupId) {
     const owner = await giveMeOwner("group", groupId);
     const members = await giveMeMembers("group", groupId);
     const candidates = await giveMeCandidates("group", groupId);
-    const groupActivities = await giveMeAll("activity" ,"accessibility", groupId);
+    const groupActivities = await giveMeAll("activity", "accessibility", groupId);
     const remakeActyvities = groupActivities.map(a => ({
         id: a.id,
         date: a.attributes.date,
         location: a.attributes.location,
-        activityTytle: a.attributes.activityTytle,
+        activityTitle: a.attributes.activityTitle,
         type: a.attributes.type,
     }))
     const remakeCandidates = candidates.map(c => ({
@@ -89,5 +88,6 @@ export async function unapproveGroupCandidate(ObjectId, userId) {
 };
 export async function deleteGroup(groupId) {
     await remove("group", groupId);
+
 };
 

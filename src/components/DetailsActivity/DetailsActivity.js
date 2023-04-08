@@ -16,11 +16,12 @@ export function DetailsActivity() {
 const initialActivity = {
     "activity title": "",
     type: "sport",
-    date: { from: "0000-00-00" , to: "" },
+    date: { from: "2023-01-01" , to: "" },
     location: [{ location: "", country: "" }],
     "activity description": "" , 
     members : [] ,
-    creator :{ id : "" ,ingUrl : "" , nickname : ""},
+    creator :{ id : false ,ingUrl : "" , nickname : ""},
+    isLoading : true
 };
 const [activity , setActivity] = useState(initialActivity);
 const {activityId} = useParams() ;
@@ -29,18 +30,18 @@ useEffect(()=> {
     getActivityDeatails(activityId).then((result)=>{
         const currentActivity = result ;
         setActivity(currentActivity);
-        setNumofMembers( currentActivity.members.length)
+        setNumofMembers( currentActivity.members.length + 1)
 
     }).catch((err)=> {console.log(err)})
 }, [activityId]) ;
 const {userId} = useContext(AuthContext);
 const navigate = useNavigate() ;
- const isMember = !!activity.members.find((m) => m.id === userId) ;
+ const isMember = !!(activity.members.find((m) => m.id === userId)) ;
 
 async function joinToActivity (userData){
     try{
   await joinNewMemberToActivity(activityId) ;
-  setActivity({...activity , members : {...activity.members , userData} })
+  setActivity({...activity , members : [...activity.members , userData] })
 }catch(err){
     console.log(err);
 }}
@@ -52,8 +53,11 @@ async function sendData(data){
         console.log(err);
 }};
 async function removeUser(memberId){
- setActivity((act) => ({...act , members : act.members.filter(x => x.id !== userId)}));
- try{
+
+ try{ 
+    setActivity((act) => {
+    const members = act.members.filter(x => x.id !== memberId); 
+ return {...act , members}});
  await removeUserFromActivity (activityId , memberId ) ; 
 }catch(err){
     console.log(err);

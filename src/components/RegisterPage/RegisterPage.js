@@ -9,7 +9,7 @@ import { AuthContext } from "../../contexts/authContext";
 
 export function RegisterPage() {
     const [currentData, setCurrentData] = useState({ 
-        email :'' , 
+        username :'' , 
         password : "" ,
         repeatPassword : "" , 
         nickname : "" ,
@@ -26,7 +26,7 @@ export function RegisterPage() {
         try {
            await onRegister(currentData) ;
         } catch (error) {
-            setErrors((err) => ([...err , ...error])) ;
+            setErrors(error) ;
         }
     }
 
@@ -37,18 +37,14 @@ export function RegisterPage() {
     function onScroll(e) {
         const { scrollTop, clientHeight, scrollHeight } = e.target;
 
-        if (Math.floor(scrollTop + clientHeight) === Math.floor(scrollHeight)) {
+        if (Math.floor((scrollTop + clientHeight)/100) === Math.floor(scrollHeight/100) ){
             setTermsIsRead(true)
         }
     }
 
     return (
         <div className={styles["container-div"]}>
-            {errors.length > 0 && (
-                <div className={styles["error-div"]}>
-                    {errors.map((err) => <p key={err.message}>{err.message}</p>)}
-                </div>
-            )}
+
             <form onSubmit={formSubmit} className={styles["form"]}>
                 <label htmlFor="username" className={styles["label"]}>{`Username :`}</label>
                 <input
@@ -97,7 +93,11 @@ export function RegisterPage() {
                     className={styles["textarea"]}
                     value={termOfUse}
                     name="terms"></textarea>
-
+                {errors.length > 0 && (
+                <div className={styles["error-div"]}>
+                    {errors.map((err) => <p key={err.message}>{err.message}</p>)}
+                </div>
+            )}
 
                 <div className={styles["inline-div"]} >
                     <CustomButton text={"Register"} type="submit" disabled={!termsIsRead} />

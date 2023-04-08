@@ -18,8 +18,7 @@
 }
 
 .icon  {
-    background-color: aqua;
-    border: 1px solid;
+    background-color: rgba(153, 153, 210, 0.434);
     border-radius: 50%;
     box-sizing: border-box;
     width: 100%;

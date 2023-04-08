@@ -14,6 +14,7 @@ import { LoginPage } from './components/LoginPage/LoginPage';
 import { RegisterPage } from './components/RegisterPage/RegisterPage';
 import { AuthProvider } from './contexts/authContext';
 import { Logout } from './components/Logout/Logout';
+import { RouteGuard } from './components/commonComponents/RouteGuard/RouteGuard';
 
 function App() {
   return (
@@ -24,15 +25,17 @@ function App() {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/activities' element={<Activities />} />
-            <Route path='/activities/create' element={<CreateAcivity />} />
+            <Route path='/auth/login' element={<LoginPage />} />
+            <Route path='/auth/register' element={<RegisterPage />} />
             <Route path='/activities/:activityId' element={<DetailsActivity />} />
+            <Route element={<RouteGuard />}>
+            <Route path='/activities/create' element={<CreateAcivity />} />
             <Route path='/groups' element={<GroupList />} />
             <Route path='/groups/create' element={<CreateGroup />} />
             <Route path='/groups/:groupId' element={<DetailsGroup />} />
             <Route path='/profile/:profileId' element={<Profile />} />
-            <Route path='/auth/login' element={<LoginPage />} />
-            <Route path='/auth/register' element={<RegisterPage />} />
             <Route path='/auth/logout' element={<Logout />} />
+            </Route>
           </Routes>
         </AuthProvider>
       </BrowserRouter>
