@@ -1,5 +1,6 @@
 import { useState, useEffect} from 'react';
 import styles from "./profileDetails.module.css";
+import { Navigate } from 'react-router-dom';
 
 
 import { formContext } from '../../../contexts/formContext';
@@ -48,6 +49,7 @@ export function ProfileDetails({details , sendData , destroy , isOwner }) {
           setGeneralEdit(false)
     }catch(err){
         console.log(err.message) ; 
+        return <Navigate to={"/error"}/>
     }
     }
 

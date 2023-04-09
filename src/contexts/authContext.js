@@ -27,7 +27,6 @@ export const AuthProvider = ({
     const onLogout = async () => {
         await logoutUser();
         setAuth({});
-        navigate('/activities');
     };
     const addNewActivity = (newActivity) => {
     if(auth.acivities){

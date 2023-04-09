@@ -1,5 +1,5 @@
 import { useState ,useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,Navigate  } from "react-router-dom";
 import styles from "./createGroup.module.css";
 
 import { AuthContext } from "../../contexts/authContext";
@@ -51,6 +51,7 @@ export function CreateGroup() {
         navigate("/groups");
     }catch(err){
         console.log(err.message) ; 
+        return <Navigate to={"/error"}/>
     }
     }
 

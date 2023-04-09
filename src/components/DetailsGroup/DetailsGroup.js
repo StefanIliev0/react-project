@@ -1,5 +1,5 @@
 import { useEffect ,useState} from 'react' ;
-import { useParams ,useNavigate} from 'react-router-dom';
+import { useParams ,useNavigate , Navigate} from 'react-router-dom';
 import styles from "./detailsGroup.module.css";
 
 
@@ -30,50 +30,56 @@ export function DetailsGroup() {
         getGroupDeatails(groupId).then((result)=>{
             const currentGroup = result ;
             setGroup(currentGroup);
-        }).catch((err)=> {console.log(err)})
+        }).catch((err)=> {
+            console.log(err); 
+            return <Navigate to={"/error"}/>})
     }, [groupId]) ;
     const navigate = useNavigate();
     async function sendData(data){
         try{
         await updateGroup( data , groupId );
     }catch(err){
-            console.log(err)
+            console.log(err);
+            return <Navigate to={"/error"}/>
         }
     }
     async function removeUser(memberId){
      try{
-     await removeUserFromGroup (groupId , memberId ) ; 
      setGroup((gr) => { 
         const members = gr.members.filter(x => x.id !== memberId)
         return{...gr , members}});
+     await removeUserFromGroup (groupId , memberId ) ; 
     }catch(err){
         console.log(err)
+        return <Navigate to={"/error"}/>
     }
     }
     async function approveCandidate (memberId){
         try{
-      await  approveGroupCandidate(groupId , memberId)
       const candidate = group.candidates.find(c => c.id === memberId);
       const candidates = group.candidates.filter(c => c.id !== memberId);
         setGroup((gr) => {
             let members = gr.members  
             members.push(candidate);
         return  {...gr, candidates, members}})
+      await  approveGroupCandidate(groupId , memberId);
     }catch(err){
-        console.log(err)
+        console.log(err);
+        return <Navigate to={"/error"}/>
     }
     }
     async function unapproveCandidate (memberId) {
         try{
-        await unapproveGroupCandidate(groupId , memberId)
         const candidates = group.candidates.filter(c => c.id !== memberId);
         setGroup((gr) => ({...gr, candidates}));
+        await unapproveGroupCandidate(groupId , memberId)
     }catch(err){
         console.log(err);
+        return <Navigate to={"/error"}/>
     }}
     async function deleteItem (){
         await deleteGroup(groupId);
-          navigate("/groups");
+        navigate("/groups");
       };
     return (
 <div className={styles["container-div"]}> 

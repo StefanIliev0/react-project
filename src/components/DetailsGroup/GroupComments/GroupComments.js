@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from "react";
+import { Navigate } from "react-router-dom";
 import styles from "./groupComments.module.css";
 
 import { addComment, getComments, deleteComment } from "../../../services/commentService";
@@ -24,6 +25,7 @@ export function GroupComments({ objectId, owner }) {
             setComments((c) => ([...c, newComment]));
         } catch (err) {
             console.log(err);
+            return <Navigate to={"/error"}/>
         }
     }
     async function removeComment(commentId) {
@@ -33,6 +35,7 @@ export function GroupComments({ objectId, owner }) {
             setComments(newComments);
         } catch (err) {
             console.log(err);
+            return <Navigate to={"/error"}/>
         }
     }
     return (

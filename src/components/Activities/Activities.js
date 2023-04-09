@@ -1,4 +1,5 @@
 import { useContext, useEffect ,useState } from "react";
+import { Navigate } from "react-router-dom";
 import styles from "./activities.module.css";
 
 import {AuthContext} from "../../contexts/authContext"
@@ -16,7 +17,10 @@ export function Activities() {
     useEffect(()=>{
          getAllActivities().then((value) =>{
             setActivities(value); 
-         }).catch((err) => console.log(err)); 
+         }).catch((err) =>{
+            console.log(err);
+         return <Navigate to={"/error"}/>
+        }); 
     },[])
 
     return (

@@ -1,5 +1,5 @@
 import {useState,useContext,useEffect } from 'react' ;
-import { useParams ,useNavigate} from 'react-router-dom';
+import { useParams ,useNavigate, Navigate} from 'react-router-dom';
 import styles from "./profile.module.css";
 
 import { getProfileDeatails,deleteProfile, updateProfile } from '../../services/userServise';
@@ -27,7 +27,9 @@ export function Profile() {
         getProfileDeatails(profileId).then((result)=>{
             const currentProfile = result ;
             setProfile(currentProfile);
-        }).catch((err)=> {console.log(err)})
+        }).catch((err)=> {
+            console.log(err);
+            return <Navigate to={"/error"}/>})
     }, [profileId]) ;
     const {userId} = useContext(AuthContext);
     const isOwner = userId === profile?.id;
@@ -38,10 +40,16 @@ export function Profile() {
         await updateProfile( data , profileId );
     }catch(err){
             console.log(err);
+            return <Navigate to={"/error"}/>
     }};
     async function deleteItem (){
+        try{
       await deleteProfile(profileId);
         navigate("/login");
+    }catch(err){
+        console.log(err);
+        return <Navigate to={"/error"}/>
+    }
     };
     
 

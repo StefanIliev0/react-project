@@ -15,6 +15,7 @@ import { RegisterPage } from './components/RegisterPage/RegisterPage';
 import { AuthProvider } from './contexts/authContext';
 import { Logout } from './components/Logout/Logout';
 import { RouteGuard } from './components/commonComponents/RouteGuard/RouteGuard';
+import { ErrorPage } from './components/ErrorPage/ErrorPage';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path='/profile/:profileId' element={<Profile />} />
             <Route path='/auth/logout' element={<Logout />} />
             </Route>
+            <Route path='*' element={<ErrorPage/>} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>

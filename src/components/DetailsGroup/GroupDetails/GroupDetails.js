@@ -47,12 +47,8 @@ export function GroupDetail({details, sendData , unsubscribeFromGroup ,deleteIte
             sendData(savedData) ;}
     };
     async function submitForm() {
-        try{
           await sendData(savedData) ; 
           setGeneralEdit(false)
-    }catch(err){
-        console.log(err.message) ; 
-    }
     }
 
     function setEdit(state) {

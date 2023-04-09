@@ -1,4 +1,5 @@
 import { useContext, useEffect ,useState } from 'react' ;
+import { Navigate } from 'react-router-dom';
 import styles from "./groupList.module.css";
 
 
@@ -16,19 +17,22 @@ export function GroupList() {
     useEffect(()=>{
          getAllGroups().then((value) =>{
             setGroups(value); 
-         }).catch((err) => console.log(err)); 
+         }).catch((err) =>{
+             console.log(err)
+             return <Navigate to={"/error"}/>}); 
     },[])
 async function candidate(groupId){
     try{
-       await candidateToGroup(groupId);
        setGroups((oldGroups) => {
         const groupsWithoutCurrGroup = oldGroups.filter(g => g.id !== groupId) ;
         let currentGroup = oldGroups.find(g => g.id === groupId) ; 
         currentGroup.candidatesId.push(user._id) ; 
         return [...groupsWithoutCurrGroup , currentGroup] ; 
        })
+       await candidateToGroup(groupId);
     }catch(err){
         console.log(err);
+        return <Navigate to={"/error"}/>;
     }
 }
 

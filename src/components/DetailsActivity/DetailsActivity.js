@@ -1,6 +1,6 @@
 
 import {useContext, useEffect ,useState} from 'react' ;
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams ,Navigate} from 'react-router-dom';
 import styles from "./detailsActivity.module.css";
 
 
@@ -40,10 +40,11 @@ const navigate = useNavigate() ;
 
 async function joinToActivity (userData){
     try{
-  await joinNewMemberToActivity(activityId) ;
   setActivity({...activity , members : [...activity.members , userData] })
+  await joinNewMemberToActivity(activityId) ;
 }catch(err){
     console.log(err);
+    return <Navigate to={"/error"}/>
 }}
 
 async function sendData(data){
@@ -51,6 +52,7 @@ async function sendData(data){
     await updateActivity( data , activityId );
 }catch(err){
         console.log(err);
+        return <Navigate to={"/error"}/>
 }};
 async function removeUser(memberId){
 
@@ -61,13 +63,19 @@ async function removeUser(memberId){
  await removeUserFromActivity (activityId , memberId ) ; 
 }catch(err){
     console.log(err);
+    return <Navigate to={"/error"}/>
 }};
 function updateLocations(data){
     setActivity((act) => ({...act , location : data}));
 };
 async function deleteItem (){
+    try{
   await deleteActivity(activityId);
     navigate("/activities");
+}catch(err){
+    console.log(err);
+    return <Navigate to={"/error"}/>
+}
 };
 
     return (

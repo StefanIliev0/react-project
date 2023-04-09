@@ -7,6 +7,5 @@ export function Logout() {
 const {onLogout} = useContext(AuthContext);
 
 onLogout() ;
-
     return <Navigate to="/" replace />
 }
