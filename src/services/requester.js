@@ -84,7 +84,6 @@ export const remove = async (type, objectId) => {
     return currentParse
 };
 export const update = async (type, data, id) => {
-    console.log("update")
     const newParseQuery = await new Parse.Query(type).get(id);
     Object.keys(data).forEach(k => {
         newParseQuery.set(k, data[k]);

@@ -65,6 +65,7 @@ export function CreateAcivity() {
            err.values.forEach(x => errors.push({message : x}))
         throw errors; 
         }
+        console.log(savedData); 
         const newActivity = await createNewActivity(savedData, user._id);
         addNewActivity(newActivity);
         navigate("/activities");

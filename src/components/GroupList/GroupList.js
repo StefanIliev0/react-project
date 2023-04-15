@@ -12,7 +12,7 @@ import { candidateToGroup, getAllGroups } from '../../services/groupService';
 
 export function GroupList() {
     const{ user }  = useContext(AuthContext); 
-    const [groups , setGroups] = useState([]);
+    const [groups , setGroups] = useState(undefined);
 
     useEffect(()=>{
          getAllGroups().then((value) =>{
@@ -45,15 +45,14 @@ async function candidate(groupId){
 </div>
 </div>
 <div className={styles["group-div"]}>
-    {groups.map((g) => {
+    {groups && groups.map((g) => {
         const isCandidate = g.candidatesId.includes(user._id); 
         const isMember = user?.groups?.find(uGr => uGr.id === g.id)
-
         return (
             <GroupCard 
-            name={g.name}
-            id={g.id}
-            location={g.location} 
+            name={g?.name}
+            id={g?.id}
+            location={g?.location} 
             candidate={candidate}
             preferentType={g.preferentType}
             key={g.id}
@@ -61,9 +60,7 @@ async function candidate(groupId){
             isCandidate={isCandidate}
             />
         )
-    })
-
-    }
+    })}
 </div>
 </div>
     )

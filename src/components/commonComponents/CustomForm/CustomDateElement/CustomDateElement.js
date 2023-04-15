@@ -19,23 +19,19 @@ export function CustomDateElement({name}) {
     const [hover, setHover] = useState(false);
     const [edit, setEdit] = useState(false);
     const [currentText , setCurrentText] = useState({ text : savedData[name] , error : "" });
-    const [oneDayAct, setOneDayAct] = useState(true);
+    const [oneDayAct, setOneDayAct] = useState(!currentText.text?.to);
     useEffect(()=>{
         if(!generalEdit){
         setCurrentText({ text : savedData[name] , error : "" })}
     }, [savedData])
     useEffect(() => {
         onEditSubmit();
-
     }
     , [currentText]);
-
     function onEditSubmit(){
         if(generalEdit){
         onSubmit();}
     }
-    
-
     const onSubmit = (e) => {
         if(e){
             e.preventDefault(e) ;}
@@ -51,13 +47,26 @@ export function CustomDateElement({name}) {
     function handleChange(e){
         const dateTitle = e.target.name ;
         const dateValue = e.target.value ;
-        setCurrentText( (currentText) =>  ( {text :{...currentText.text ,  [dateTitle] : dateValue} , error :checkInput[name](e.target.value)}));
+        console.log(dateTitle , ); 
+        setCurrentText( (currentText) => { 
+            const currText = {...currentText.text ,  [dateTitle] : dateValue};
+            const errors =checkInput[name](currText);
+           return {text :currText , error :errors}});
     };
     function undo(e){
         e.preventDefault();
         setCurrentText({text : savedData[name] , error : ""});
         setEdit(false) ; 
     };
+    function IsOneDayAct(){
+        setOneDayAct((oneDay) => {
+             if(!oneDay){
+        setCurrentText( (currentText) => ({...currentText , text : {... currentText.text , to : ""} }));
+      }
+      return !oneDay
+        }); 
+     
+    }
     return (
     <div className={styles["input-container-long"]} >
     {generalEdit ?(
@@ -65,7 +74,7 @@ export function CustomDateElement({name}) {
     text={currentText.text} 
     changeHandler={handleChange} 
     oneDay={oneDayAct} 
-    changeDays={ () => setOneDayAct(!oneDayAct)}
+    changeDays={IsOneDayAct}
     error={currentText.error}/>
 ) : 
     (<>
@@ -76,7 +85,7 @@ export function CustomDateElement({name}) {
     text={currentText.text} 
     changeHandler={handleChange} 
     oneDay={oneDayAct} 
-    changeDays={() => setOneDayAct(!oneDayAct)}
+    changeDays={IsOneDayAct}
     error={currentText.error}/>
 
     <BtnsSubmitAndReject reject={undo} />

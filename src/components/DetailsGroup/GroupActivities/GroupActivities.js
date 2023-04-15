@@ -3,9 +3,8 @@ import styles from "./groupActivities.module.css";
 
 export function GroupActivities({ groupActivities }) {
     return (
-
         <div className={styles["activity-div"]}>
-            {groupActivities.map(g => (
+            { (groupActivities.length > 0) && groupActivities.map(g => (
                 <ActivityCard
                     name={g?.id}
                     key={g?.id}

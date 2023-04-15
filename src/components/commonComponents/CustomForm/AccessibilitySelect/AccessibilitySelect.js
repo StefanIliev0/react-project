@@ -6,15 +6,15 @@ import { formContext } from "../../../../contexts/formContext";
 
 export function AccessibilitySelect({name}){
     const { savedData , saveData , generalEdit , groups} = useContext(formContext);
-    const [currentText , setCurrentText] = useState(savedData["accessibility"]);
+    const [currentText , setCurrentText] = useState(savedData[name]);
     useEffect(() => {
         onEditSubmit();}
     , [currentText]);
 
     function onEditSubmit(){
         if(generalEdit){
-            saveData(name ,currentText );}
-    }
+            saveData(name ,currentText );
+        }};
     
 
     function handleChange(e){
@@ -28,7 +28,7 @@ export function AccessibilitySelect({name}){
              <select id="accessibility" name={"accessibility"} value={currentText} onChange={handleChange} className={styles["select"]}>
                      <option value="all" >All</option>
                      {
-                      groups &&  groups.map( (group) => <option key={group._id} value={group._id}>{group.name}</option>)
+                      groups &&  groups.map( (group) => <option key={group.id} value={group.id}>{group.name}</option>)
                      }
 
                  </select>

@@ -16,7 +16,7 @@ export function GroupCard({name, id, preferentType, location, candidate, isMembe
     <p>Preferred activity :{preferentType}</p>
     <p>location : {`${location[0].location}, ${location[0].country}`}</p>
     </div>
-    <div >
+    <div  className={styles["btns-div"]}>
     {(!isCandidate && !isMember) && <CustomButton text={"Candidate"} onclick={() => candidate(id)} />}
     {isMember && <CustomLink to={`/groups/${id}`} text = "Details"/>}
     </div>

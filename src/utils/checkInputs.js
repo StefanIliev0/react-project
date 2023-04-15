@@ -47,17 +47,12 @@ const checkType = (input) => {
   return ''
 };
 const checkDate = (input) => {
-  if (!(/^\d{4}-\d{2}-\d{2}$/m.test(input))) {
-    return "Date must be on current format!";
-  };
-  // if(input){
-  // if(!(/^\d{4}-\d{2}-\d{2}$/m.test(input.from))){
-  //   return "Date must be on current format!" ;
-  // } ;
-  // if(input.to < input.from){
-  //   return  "Starting Date must be before enddate" ;
-  // }
-  // }
+  if (!!input.to) {
+    const firstDate = new Date(input.from);
+    const secondDate = new Date(input.to); 
+    if(firstDate >= secondDate){
+    return "First date must be before second date!";
+  }};
   return ''
 };
 const checkLocation = (input) => input.length < 3 ? "Location inputs must be more 2 letters" : '';

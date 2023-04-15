@@ -45,13 +45,14 @@ export async function getGroupDeatails(groupId) {
     const members = await giveMeMembers("group", groupId);
     const candidates = await giveMeCandidates("group", groupId);
     const groupActivities = await giveMeAll("activity", "accessibility", groupId);
-    const remakeActyvities = groupActivities.map(a => ({
+   
+    const remakeActyvities = (groupActivities.length !== 0) ? groupActivities.map(a => ({
         id: a.id,
         date: a.attributes.date,
         location: a.attributes.location,
         activityTitle: a.attributes.activityTitle,
         type: a.attributes.type,
-    }))
+    })) : [] ; 
     const remakeCandidates = candidates.map(c => ({
         id: c.id,
         imgUrl: c.attributes.imgUrl,
