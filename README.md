@@ -1,70 +1,108 @@
-# Getting Started with Create React App
+# Social React App
 
+## Introduction
+This is a project written entirely by me with the purpose of presenting the skills I have on the "React" library. For this purpose, I have used a minimal amount of additional libraries. Please do not abuse the code in this repositories!
+
+
+
+The application is made with the purpose of a social network that supports the organization and implementation of group activities and trips.
+
+
+## Contents
+1. [Startup](#startup)
+2. [Application structure](#application-structure)
+3. [Components](#components)
+4. [Contexts](#contexts)
+5. [Hooks](#hooks)
+6. [Services](#services)
+7. [Utils](#utils)
+
+## Startup
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+#### Development server
 
-In the project directory, you can run:
+After copying the repository you need to install the node packages with `npm install`.
 
-### `npm start`
+Run `npm start` for a dev server. Navigate to `http://localhost:3000`. The application will automatically reload if you change any of the source files.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Application structure
 
-### `npm test`
+Тhe application start from `index.js` file in main directory where is render App component as main Component.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Accordingly, the file structure of the application is:
 
-### `npm run build`
+* src
+    * [components](#components)
+        * [commonComponents](#commoncomponents)
+            * [Edit botton](#edit-botton) 
+            * [Submit and reject buttons](#submit-and-reject-buttons)
+            * Custom button 
+            * Custom form 
+                * Accessibility Select 
+                * Custom Date Element 
+                * Custom input element
+                * Custom location element 
+                * Custom number element 
+                * Custom profile picture
+                * Custom select element 
+                * Custom textarea element 
+            * Custom link 
+            * Profile div 
+            * Route guard 
+        * Activities
+        * Activity Card
+        * Create actyvity
+        * Create group
+        * Details activity
+            * Activity detail
+            * Location details
+        * Details group
+            * Group activities 
+            * Group comments 
+            * Group details 
+        * Error page
+        * Footer
+        * Group card
+        * Group list
+        * Header
+        * Home
+            * Home articles 
+            * Home header
+        * Login page
+        * Logout
+        * Members 
+        * Profile 
+            * Profile activities 
+            * Profile details 
+            * Profile groups 
+        * Register page 
+    * contexts.
+    * hooks.
+    * services 
+    * utils.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Components 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Each of the components has its own stylе module.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### commonComponents
+     
+This folder contains simple components that are used in all other components, but it is also a individual route.
 
-### `npm run eject`
+#### Edit botton 
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+This is a dumb component. 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Accepts an `onClick` via props and returns a simple `jsx` using another shared component.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### Submit and reject buttons 
+    
+This is a dumb component. 
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Accepts `submit` and `reject` via props and returns a plain `jsx` using another shared component. By checking for `submit` in props.
 
-## Learn More
+[home](#contents)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Work in progress... 
